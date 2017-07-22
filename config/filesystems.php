@@ -70,6 +70,11 @@ return [
             'bucket'     => env('QINIU_BUCKET', 'test'),
             'domain'     => env('QINIU_DOMAIN', 'xxx.clouddn.com'),
         ],
+
+        'admin' => [
+            'driver' => 'local',
+            'root' => storage_path('app'),
+        ],
     ],
 
 ];
