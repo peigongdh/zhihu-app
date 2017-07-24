@@ -36,6 +36,11 @@ class QuestionRepository
         return $questions;
     }
 
+    public function getQuestionsItem($paginate) {
+        $questions = Question::published()->latest('updated_at')->with('user')->paginate($paginate);
+        return $questions;
+    }
+
     public function normalizeTopic(array $topics)
     {
         return collect($topics)->map(function ($topic) {

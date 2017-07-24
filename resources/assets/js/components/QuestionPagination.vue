@@ -11,7 +11,7 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading">
-                                <a href="/question/" + {{ item.id }}>
+                                <a :href="getQuestionUrl(item)">
                                     {{ item.title }}
                                 </a>
                             </h4>
@@ -24,24 +24,24 @@
                     <li v-if="pagination.current_page > 1">
                         <a href="#" aria-label="Previous"
                            @click.prevent="changePage(pagination.current_page - 1)">
-                            <span aria-hidden="true">&laquo;</span>
+                            <span>&laquo;</span>
                         </a>
                     </li>
                     <li v-for="page in pagesNumber"
                         v-bind:class="[ page == isActived ? 'active' : '']">
                         <a href="#"
-                           @click.prevent="changePage(page)">@{{ page }}</a>
+                           @click.prevent="changePage(page)">{{ page }}</a>
                     </li>
                     <li v-if="pagination.current_page < pagination.last_page">
                         <a href="#" aria-label="Next"
                            @click.prevent="changePage(pagination.current_page + 1)">
-                            <span aria-hidden="true">&raquo;</span>
+                            <span>&raquo;</span>
                         </a>
                     </li>
                 </ul>
             </nav>
-    <pre>
-        @{{ $data | json }}
+            <pre>
+        {{ $data | json }}
     </pre>
         </div>
     </div>
@@ -56,7 +56,8 @@
                     per_page: 7,
                     from: 1,
                     to: 0,
-                    current_page: 1
+                    current_page: 1,
+                    last_page: 1,
                 },
                 offset: 4,// left and right padding from the pagination <span>,just change it to see effects
                 items: []
@@ -93,12 +94,16 @@
             fetchItems(page) {
                 var data = {page: page};
                 axios.get('api/item/question').then((response) => {
-                    this.items = response.data;
+                    this.items = response.data.question.data;
+                    this.pagination = response.data.pagination;
                 });
             },
             changePage(page) {
                 this.pagination.current_page = page;
                 this.fetchItems(page);
+            },
+            getQuestionUrl(item) {
+                return '/question/' + item.id;
             }
         }
     }

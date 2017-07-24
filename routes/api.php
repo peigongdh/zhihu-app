@@ -30,3 +30,20 @@ Route::get('answer/{id}/comments', 'CommentController@answer');
 Route::get('question/{id}/comments', 'CommentController@question');
 
 Route::post('comment', 'CommentController@store');
+
+Route::get('item/question', function() {
+    $questionRepository = new \App\Repositories\QuestionRepository();
+    $question = $questionRepository->getQuestionsItem(7);
+    $response = [
+        'pagination' => [
+            'total' => $question->total(),
+            'per_page' => $question->perPage(),
+            'current_page' => $question->currentPage(),
+            'last_page' => $question->lastPage(),
+            'from' => $question->firstItem(),
+            'to' => $question->lastItem()
+        ],
+        'question' => $question
+    ];
+    return $response;
+});

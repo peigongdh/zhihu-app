@@ -30,3 +30,11 @@ $factory->define(App\Topic::class, function (Faker\Generator $faker) {
         'questions_count' => 1
     ];
 });
+
+$factory->define(App\Question::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->sentence,
+        'body' => $faker->paragraph,
+        'user_id' => array_random([1, 2])
+    ];
+});

@@ -22,6 +22,7 @@ Vue.component('user-vote-button', require('./components/UserVoteButton.vue'));
 Vue.component('send-message', require('./components/SendMessage.vue'));
 Vue.component('comment', require('./components/Comment.vue'));
 Vue.component('user-avatar', require('./components/Avatar.vue'));
+Vue.component('question-pagination', require('./components/QuestionPagination.vue'));
 
 const app = new Vue({
     el: '#app'

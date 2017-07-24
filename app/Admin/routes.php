@@ -1,5 +1,6 @@
 <?php
 
+use Encore\Admin\Facades\Admin;
 use Illuminate\Routing\Router;
 
 Admin::registerHelpersRoutes();
@@ -11,5 +12,5 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
-
+    $router->resource('users', UserController::class);
 });
