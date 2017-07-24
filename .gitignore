@@ -9,6 +9,10 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
+<<<<<<< HEAD
 public/packages
 public/css/app.css
 public/js/app.js
+=======
+composer.lock
+>>>>>>> f9210b186771859019a908dcacf8b0432121599f
