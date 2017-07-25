@@ -11,9 +11,10 @@ class FollowerController extends Controller
 {
     protected $userRepository;
 
-    public function __construct(UserRepository $user)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->userRepository = $user;
+        $this->middleware('auth');
+        $this->userRepository = $userRepository;
     }
 
     public function index(Request $request)

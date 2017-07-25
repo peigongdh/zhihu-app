@@ -18,8 +18,8 @@ Route::middleware('api')->post('/question/follower', 'QuestionFollowController@f
 Route::middleware('auth:api')->post('/question/follow', 'QuestionFollowController@followThisQuestion');
 
 
-Route::middleware('api')->post('/user/followers', 'FollowerController@index');
-Route::middleware('api')->post('/user/follow', 'FollowerController@follow');
+Route::middleware('auth:api')->post('/user/followers', 'FollowerController@index');
+Route::middleware('auth:api')->post('/user/follow', 'FollowerController@follow');
 
 Route::middleware('api')->post('/answer/vote/users', 'VoteController@users');
 Route::middleware('api')->post('/answer/vote', 'VoteController@vote');
