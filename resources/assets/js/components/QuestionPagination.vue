@@ -1,24 +1,20 @@
 <template>
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
-            <ul class="list-group">
-                <li class="list-group-item" v-for="item in items">
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="">
-                                <img width="48" :src="item.user.avatar" :alt="item.user.name">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">
-                                <a :href="getQuestionUrl(item)">
-                                    {{ item.title }}
-                                </a>
-                            </h4>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            <div class="media" v-for="item in items">
+                <div class="media-left">
+                    <a href="">
+                        <img width="48" :src="item.user.avatar" :alt="item.user.name">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <a :href="getQuestionUrl(item)">
+                            {{ item.title }}
+                        </a>
+                    </h4>
+                </div>
+            </div>
             <nav>
                 <ul class="pagination">
                     <li v-if="pagination.current_page > 1">
@@ -28,7 +24,7 @@
                         </a>
                     </li>
                     <li v-for="page in pagesNumber"
-                        v-bind:class="[ page == isActived ? 'active' : '']">
+                        v-bind:class="[ page == isActive ? 'active' : '']">
                         <a href="#"
                            @click.prevent="changePage(page)">{{ page }}</a>
                     </li>
@@ -40,15 +36,15 @@
                     </li>
                 </ul>
             </nav>
-            <pre>
-        {{ $data | json }}
-    </pre>
         </div>
     </div>
 </template>
 
 <script>
     export default {
+        mounted() {
+            this.fetchItems(this.pagination.current_page);
+        },
         data() {
             return {
                 pagination: {
@@ -63,11 +59,8 @@
                 items: []
             }
         },
-        mounted() {
-            this.fetchItems(this.pagination.current_page);
-        },
         computed: {
-            isActived() {
+            isActive() {
                 return this.pagination.current_page;
             },
             pagesNumber() {
@@ -93,9 +86,9 @@
         methods: {
             fetchItems(page) {
                 var data = {page: page};
-                axios.get('api/item/question').then((response) => {
-                    this.items = response.data.question.data;
-                    this.pagination = response.data.pagination;
+                axios.get('api/item/question?page=' + data.page).then((response) => {
+                    this.items = response.data.data;
+                    this.pagination = response.data;
                 });
             },
             changePage(page) {
