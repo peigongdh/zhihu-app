@@ -16415,13 +16415,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -16471,9 +16464,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var data = { page: page };
-            axios.get('api/item/question/' + data.page).then(function (response) {
-                _this.items = response.data.question.data;
-                _this.pagination = response.data.pagination;
+            axios.get('/api/item/question?page=' + data.page).then(function (response) {
+                _this.items = response.data.data;
+                _this.pagination = response.data;
             });
         },
         changePage: function changePage(page) {
@@ -42868,12 +42861,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container"
   }, [_c('div', {
     staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('ul', {
-    staticClass: "list-group"
-  }, _vm._l((_vm.items), function(item) {
-    return _c('li', {
-      staticClass: "list-group-item"
-    }, [_c('div', {
+  }, [_vm._l((_vm.items), function(item) {
+    return _c('div', {
       staticClass: "media"
     }, [_c('div', {
       staticClass: "media-left"
@@ -42895,8 +42884,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.getQuestionUrl(item)
       }
-    }, [_vm._v("\n                                " + _vm._s(item.title) + "\n                            ")])])])])])
-  })), _vm._v(" "), _c('nav', [_c('ul', {
+    }, [_vm._v("\n                        " + _vm._s(item.title) + "\n                    ")])])])])
+  }), _vm._v(" "), _c('nav', [_c('ul', {
     staticClass: "pagination"
   }, [(_vm.pagination.current_page > 1) ? _c('li', [_c('a', {
     attrs: {
@@ -42934,7 +42923,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.changePage(_vm.pagination.current_page + 1)
       }
     }
-  }, [_c('span', [_vm._v("»")])])]) : _vm._e()], 2)]), _vm._v(" "), _c('pre', [_vm._v("\n    " + _vm._s(_vm._f("json")(_vm.$data)) + "\n")])])])
+  }, [_c('span', [_vm._v("»")])])]) : _vm._e()], 2)])], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
