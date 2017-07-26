@@ -1,6 +1,7 @@
 <template>
     <button
             class="btn btn-default pull-left"
+            v-if="hidden"
             v-text="text"
             v-bind:class="{'btn-success': followed}"
             v-on:click="follow"
@@ -10,14 +11,21 @@
 
 <script>
     export default {
-        props: ['user'],
+        props: ['is_login', 'user'],
         mounted() {
-            axios.post('/api/user/followers', {'user': this.user}).then((response) => {
-                this.followed = response.data.followed
-            })
+            if (this.is_login) {
+                axios.post('/api/user/followers', {'user': this.user}).then((response) => {
+                    this.followed = response.data.followed
+                    this.hidden = true;
+                })
+            } else {
+                this.followed = false;
+                this.hidden = false;
+            }
         },
         data() {
             return {
+                hidden: true,
                 followed: false
             }
         },
@@ -28,9 +36,11 @@
         },
         methods: {
             follow() {
-                axios.post('/api/user/follow', {'user': this.user}).then((response) => {
-                    this.followed = response.data.followed
-                })
+                if (this.is_login) {
+                    axios.post('/api/user/follow', {'user': this.user}).then((response) => {
+                        this.followed = response.data.followed
+                    })
+                }
             }
         }
     }

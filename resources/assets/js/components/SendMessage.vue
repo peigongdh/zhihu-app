@@ -2,6 +2,7 @@
     <div>
         <button
                 class="btn btn-default pull-right"
+                v-if="hidden"
                 @click="showSendMessageForm"
         >发送私信
         </button>
@@ -40,9 +41,15 @@
 
 <script>
     export default {
-        props: ['user'],
+        props: ['is_login', 'user'],
+        mounted() {
+            if (! this.is_login) {
+                this.hidden = false;
+            }
+        },
         data() {
             return {
+                hidden: true,
                 body: '',
                 status: false
             }

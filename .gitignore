@@ -9,7 +9,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
-public/packages
-public/css/app.css
-public/js/app.js
+/public/packages
+/public/css/app.css
+/public/js/app.js
 composer.lock
+/cnpm

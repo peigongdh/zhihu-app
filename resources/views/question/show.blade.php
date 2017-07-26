@@ -37,7 +37,8 @@
                         <span>关注者</span>
                     </div>
                     <div class="panel-body">
-                        <question-follow-button question="{{ $question->id }}"></question-follow-button>
+                        <question-follow-button is_login="{{ Auth::check() }}"
+                                                question="{{ $question->id }}"></question-follow-button>
                         <a href="#editor" class="btn btn-primary pull-right">撰写答案</a>
                     </div>
                 </div>
@@ -131,8 +132,9 @@
                                 </div>
                             </div>
                         </div>
-                        <user-follow-button user="{{ $question->user_id }}"></user-follow-button>
-                        <send-message user="{{ $question->user_id }}"></send-message>
+                        <user-follow-button is_login="{{ Auth::check() }}"
+                                            user="{{ $question->user_id }}"></user-follow-button>
+                        <send-message is_login="{{ Auth::check() }}" user="{{ $question->user_id }}"></send-message>
                     </div>
                 </div>
             </div>
