@@ -17,7 +17,6 @@ class QuestionFollowController extends Controller
      */
     public function __construct(QuestionRepository $questionRepository)
     {
-        $this->middleware('auth');
         $this->questionRepository = $questionRepository;
     }
 

@@ -14,7 +14,7 @@
         props: ['is_login', 'question'],
         mounted() {
             if (this.is_login) {
-                axios.post('/api/question/follower', {'question': this.question}).then((response) => {
+                axios.post('/api/question/followers', {'question': this.question}).then((response) => {
                     this.followed = response.data.followed;
                     this.hidden = true;
                 })

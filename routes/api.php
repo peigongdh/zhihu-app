@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('api')->get('/topic', 'TopicController@index');
-Route::middleware('api')->post('/question/follower', 'QuestionFollowController@follower');
+Route::middleware('api')->post('/question/followers', 'QuestionFollowController@follower');
 Route::middleware('auth:api')->post('/question/follow', 'QuestionFollowController@followThisQuestion');
 
 

@@ -16333,7 +16333,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         if (this.is_login) {
-            axios.post('/api/question/follower', { 'question': this.question }).then(function (response) {
+            axios.post('/api/question/followers', { 'question': this.question }).then(function (response) {
                 _this.followed = response.data.followed;
                 _this.hidden = true;
             });
