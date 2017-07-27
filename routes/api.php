@@ -14,15 +14,16 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('api')->get('/topic', 'TopicController@index');
+
 Route::middleware('api')->post('/question/followers', 'QuestionFollowController@follower');
 Route::middleware('auth:api')->post('/question/follow', 'QuestionFollowController@followThisQuestion');
 
 
 Route::middleware('api')->post('/user/followers', 'FollowerController@index');
-Route::middleware('api')->post('/user/follow', 'FollowerController@follow');
+Route::middleware('auth:api')->post('/user/follow', 'FollowerController@follow');
 
 Route::middleware('api')->post('/answer/vote/users', 'VoteController@users');
-Route::middleware('api')->post('/answer/vote', 'VoteController@vote');
+Route::middleware('auth:api')->post('/answer/vote', 'VoteController@vote');
 
 Route::middleware('api')->post('/message/store', 'MessageController@store');
 

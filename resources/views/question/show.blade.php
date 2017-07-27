@@ -23,7 +23,8 @@
                                 <button class="button delete-button is-naked">删除</button>
                             </form>
                         @endif
-                        <comment type="question"
+                        <comment is_login="{{ Auth::check() }}"
+                                 type="question"
                                  model="{{ $question->id }}"
                                  count="{{ $question->comments()->count() }}">
                         </comment>
@@ -39,7 +40,7 @@
                     <div class="panel-body">
                         <question-follow-button is_login="{{ Auth::check() }}"
                                                 question="{{ $question->id }}"></question-follow-button>
-                        <a href="#editor" class="btn btn-primary pull-right">撰写答案</a>
+                        <a href="#edui1" class="btn btn-primary pull-right">撰写答案</a>
                     </div>
                 </div>
             </div>
@@ -57,7 +58,8 @@
                                     {{--<img width="36" src="{{ $answer->user->avatar }}"--}}
                                     {{--alt="{{ $answer->user->name }}">--}}
                                     {{--</a>--}}
-                                    <user-vote-button answer="{{ $answer->id }}"
+                                    <user-vote-button is_login="{{ Auth::check() }}"
+                                                      answer="{{ $answer->id }}"
                                                       count="{{ $answer->votes_count }}"></user-vote-button>
                                 </div>
                                 <div class="media-body">
@@ -68,7 +70,8 @@
                                     </h4>
                                     {!! $answer->body !!}
                                 </div>
-                                <comment type="answer"
+                                <comment is_login="{{ Auth::check() }}"
+                                         type="answer"
                                          model="{{ $answer->id }}"
                                          count="{{ $answer->comments->count() }}">
                                 </comment>

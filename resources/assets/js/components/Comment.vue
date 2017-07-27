@@ -47,7 +47,7 @@
 
 <script>
     export default {
-        props: ['type', 'model', 'count'],
+        props: ['is_login', 'type', 'model', 'count'],
         mounted() {
             this.commentsCount = this.count;
         },
@@ -71,22 +71,24 @@
         },
         methods: {
             store() {
-                axios.post('/api/comment', {
-                    'type': this.type,
-                    'model': this.model,
-                    'body': this.body
-                }).then((response) => {
-                    let newComment = {
-                        user: {
-                            name: Zhihu.name,
-                            avatar: Zhihu.avatar
-                        },
-                        body: response.data.body
-                    };
-                    this.comments.push(newComment);
-                    this.body = '';
-                    this.commentsCount ++;
-                })
+                if (this.is_login) {
+                    axios.post('/api/comment', {
+                        'type': this.type,
+                        'model': this.model,
+                        'body': this.body
+                    }).then((response) => {
+                        let newComment = {
+                            user: {
+                                name: Zhihu.name,
+                                avatar: Zhihu.avatar
+                            },
+                            body: response.data.body
+                        };
+                        this.comments.push(newComment);
+                        this.body = '';
+                        this.commentsCount ++;
+                    })
+                }
             },
             showCommentForm() {
                 this.getComments();

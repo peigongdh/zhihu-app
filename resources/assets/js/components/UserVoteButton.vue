@@ -10,11 +10,13 @@
 
 <script>
     export default {
-        props: ['answer', 'count'],
+        props: ['is_login', 'answer', 'count'],
         mounted() {
-            axios.post('/api/answer/vote/users', {'answer': this.answer}).then((response) => {
-                this.voted = response.data.voted
-            });
+            if (this.is_login) {
+                axios.post('/api/answer/vote/users', {'answer': this.answer}).then((response) => {
+                    this.voted = response.data.voted
+                });
+            }
             this.voteCount = this.count
         },
         data() {
@@ -30,10 +32,12 @@
         },
         methods: {
             vote() {
-                axios.post('/api/answer/vote', {'answer': this.answer}).then((response) => {
-                    this.voted = response.data.voted;
-                    response.data.voted ? this.voteCount ++ : this.voteCount --
-               })
+                if (this.is_login) {
+                    axios.post('/api/answer/vote', {'answer': this.answer}).then((response) => {
+                        this.voted = response.data.voted;
+                        response.data.voted ? this.voteCount ++ : this.voteCount --
+                   })
+                }
             }
         }
     }
