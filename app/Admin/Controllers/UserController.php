@@ -15,6 +15,11 @@ class UserController extends Controller
 {
     use ModelForm;
 
+    private $IS_ACTIVE_SWITCH = [
+        'on' => ['value' => 1, 'text' => '已激活', 'color' => 'success'],
+        'off' => ['value' => 0, 'text' => '未激活', 'color' => 'danger'],
+    ];
+
     /**
      * Index interface.
      *
@@ -74,9 +79,11 @@ class UserController extends Controller
         return Admin::grid(User::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
-            $grid->picture()->image('avatar');
+            $grid->avatar()->image('', 48, 48);
             $grid->column('name');
             $grid->column('email');
+
+            $grid->is_active()->switch($this->IS_ACTIVE_SWITCH);
 
             $grid->created_at();
             $grid->updated_at();
@@ -93,6 +100,10 @@ class UserController extends Controller
         return Admin::form(User::class, function (Form $form) {
 
             $form->display('id', 'ID');
+            $form->display('name');
+            $form->text('email');
+
+            $form->switch('is_active')->states($this->IS_ACTIVE_SWITCH);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');

@@ -5,12 +5,12 @@ return [
     /*
      * Laravel-admin name.
      */
-    'name'      => 'Zhihu-admin',
+    'name' => 'Zhihu-admin',
 
     /*
      * Logo in admin panel header.
      */
-    'logo'      => '<b>Zhihu</b> admin',
+    'logo' => '<b>Zhihu</b> admin',
 
     /*
      * Mini-logo in admin panel header.
@@ -20,7 +20,7 @@ return [
     /*
      * Laravel-admin url prefix.
      */
-    'prefix'    => 'admin',
+    'prefix' => 'admin',
 
     /*
      * Laravel-admin install directory.
@@ -30,30 +30,30 @@ return [
     /*
      * Laravel-admin html title.
      */
-    'title'  => 'Admin',
+    'title' => 'Admin',
 
     /*
      * Laravel-admin auth setting.
      */
     'auth' => [
-        'driver'   => 'session',
+        'driver' => 'session',
         'provider' => '',
-        'model'    => Encore\Admin\Auth\Database\Administrator::class,
+        'model' => Encore\Admin\Auth\Database\Administrator::class,
     ],
 
     /*
      * Laravel-admin upload setting.
      */
-    'upload'  => [
+    'upload' => [
 
         'disk' => 'admin',
 
-        'directory'  => [
-            'image'  => 'image',
-            'file'   => 'file',
+        'directory' => [
+            'image' => 'image',
+            'file' => 'file',
         ],
 
-        'host' => 'http://localhost:8000/upload/',
+        'host' => env('APP_URL'),
     ],
 
     /*
@@ -62,7 +62,7 @@ return [
     'database' => [
 
         // Database connection for following tables.
-        'connection'  => '',
+        'connection' => '',
 
         // User tables and model.
         'users_table' => 'admin_users',
@@ -77,21 +77,21 @@ return [
         'permissions_model' => Encore\Admin\Auth\Database\Permission::class,
 
         // Menu table and model.
-        'menu_table'  => 'admin_menu',
-        'menu_model'  => Encore\Admin\Auth\Database\Menu::class,
+        'menu_table' => 'admin_menu',
+        'menu_model' => Encore\Admin\Auth\Database\Menu::class,
 
         // Pivot table for table above.
-        'operation_log_table'    => 'admin_operation_log',
+        'operation_log_table' => 'admin_operation_log',
         'user_permissions_table' => 'admin_user_permissions',
-        'role_users_table'       => 'admin_role_users',
+        'role_users_table' => 'admin_role_users',
         'role_permissions_table' => 'admin_role_permissions',
-        'role_menu_table'        => 'admin_role_menu',
+        'role_menu_table' => 'admin_role_menu',
     ],
 
     /*
      * By setting this option to open or close operation log in laravel-admin.
      */
-    'operation_log'   => true,
+    'operation_log' => true,
 
     /*
     |---------------------------------------------------------|
@@ -103,7 +103,7 @@ return [
     |               | skin-green                              |
     |---------------------------------------------------------|
      */
-    'skin'    => 'skin-blue',
+    'skin' => 'skin-blue',
 
     /*
     |---------------------------------------------------------|
@@ -114,10 +114,10 @@ return [
     |               | sidebar-mini                            |
     |---------------------------------------------------------|
      */
-    'layout'  => ['sidebar-mini'],
+    'layout' => ['sidebar-mini'],
 
     /*
      * Version displayed in footer.
      */
-    'version'   => '1.0',
+    'version' => '1.0',
 ];
