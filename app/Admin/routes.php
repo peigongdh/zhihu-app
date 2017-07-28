@@ -12,5 +12,7 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
-    $router->resource('users', UserController::class);
+    $router->resource('/zhihu/users', UserController::class);
+    $router->resource('/zhihu/questions', QuestionController::class);
+    $router->resource('/zhihu/answers', AnswerController::class);
 });

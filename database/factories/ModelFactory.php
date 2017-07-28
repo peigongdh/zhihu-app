@@ -35,6 +35,14 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence,
         'body' => $faker->paragraph,
-        'user_id' => array_random([1, 2])
+        'user_id' => array_random([1, 2]),
+    ];
+});
+
+$factory->define(App\Answer::class, function (Faker\Generator $faker) {
+    return [
+        'question_id' => array_random([101]),
+        'user_id' => array_random([1, 2]),
+        'body' => $faker->paragraph,
     ];
 });

@@ -68,6 +68,7 @@
                                             {{ $answer->user->name }}
                                         </a>
                                     </h4>
+                                    <a name="answer_{{ $answer->id }}"></a>
                                     {!! $answer->body !!}
                                 </div>
                                 <comment is_login="{{ Auth::check() }}"

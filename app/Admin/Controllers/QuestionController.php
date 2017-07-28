@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\User;
+use App\Question;
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -11,14 +11,9 @@ use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
 
-class UserController extends Controller
+class QuestionController extends Controller
 {
     use ModelForm;
-
-    private $IS_ACTIVE_SWITCH = [
-        'on' => ['value' => 1, 'text' => '已激活', 'color' => 'success'],
-        'off' => ['value' => 0, 'text' => '未激活', 'color' => 'danger'],
-    ];
 
     /**
      * Index interface.
@@ -76,14 +71,14 @@ class UserController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(User::class, function (Grid $grid) {
+        return Admin::grid(Question::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
-            $grid->avatar()->image('', 48, 48);
-            $grid->column('name');
-            $grid->column('email')->editable();
-
-            $grid->is_active()->switch($this->IS_ACTIVE_SWITCH);
+            $grid->column('title');
+            $grid->column('body','url')->display(function ($body) {
+                return "<a href='/question/{$this->id}'>链接</a>";
+            });
+            $grid->column('user_id');
 
             $grid->created_at();
             $grid->updated_at();
@@ -97,13 +92,12 @@ class UserController extends Controller
      */
     protected function form()
     {
-        return Admin::form(User::class, function (Form $form) {
+        return Admin::form(Question::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->display('name');
-            $form->email('email');
-
-            $form->switch('is_active')->states($this->IS_ACTIVE_SWITCH);
+            $form->text('title');
+            $form->textarea('body')->rows(10);
+            $form->text('user_id');
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
