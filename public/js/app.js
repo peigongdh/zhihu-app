@@ -14326,6 +14326,7 @@ Vue.component('send-message', __webpack_require__(348));
 Vue.component('comment', __webpack_require__(344));
 Vue.component('user-avatar', __webpack_require__(343));
 Vue.component('question-pagination', __webpack_require__(347));
+Vue.component('answer-pagination', __webpack_require__(374));
 
 var app = new Vue({
   el: '#app'
@@ -53885,6 +53886,263 @@ module.exports = function(module) {
 __webpack_require__(123);
 module.exports = __webpack_require__(124);
 
+
+/***/ }),
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['is_login'],
+    data: function data() {
+        return {
+            pagination: {
+                total: 0,
+                per_page: 7,
+                from: 1,
+                to: 0,
+                current_page: 1,
+                last_page: 1
+            },
+            offset: 4, // left and right padding from the pagination <span>,just change it to see effects
+            items: [],
+            isLogin: false
+        };
+    },
+    mounted: function mounted() {
+        this.fetchItems(this.pagination.current_page);
+        this.isLogin = this.is_login;
+    },
+
+    computed: {
+        isActived: function isActived() {
+            return this.pagination.current_page;
+        },
+        pagesNumber: function pagesNumber() {
+            if (!this.pagination.to) {
+                return [];
+            }
+            var from = this.pagination.current_page - this.offset;
+            if (from < 1) {
+                from = 1;
+            }
+            var to = from + this.offset * 2;
+            if (to >= this.pagination.last_page) {
+                to = this.pagination.last_page;
+            }
+            var pagesArray = [];
+            while (from <= to) {
+                pagesArray.push(from);
+                from++;
+            }
+            return pagesArray;
+        }
+    },
+    methods: {
+        fetchItems: function fetchItems(page) {
+            var _this = this;
+
+            var data = { page: page };
+            axios.get('/api/item/answer?page=' + data.page).then(function (response) {
+                _this.items = response.data.data;
+                _this.pagination = response.data;
+            });
+        },
+        changePage: function changePage(page) {
+            this.pagination.current_page = page;
+            this.fetchItems(page);
+        },
+        getUserUrl: function getUserUrl(item) {
+            return '/user/' + item.user.id;
+        },
+        getAnswerName: function getAnswerName(item) {
+            return 'answer_' + item.id;
+        },
+        getAnswerCommentCount: function getAnswerCommentCount(item) {
+            return item.comments.length;
+        }
+    }
+});
+
+/***/ }),
+/* 374 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(29)(
+  /* script */
+  __webpack_require__(373),
+  /* template */
+  __webpack_require__(375),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/opt/project/zhihu-app/resources/assets/js/components/AnswerPagination.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AnswerPagination.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1539753c", Component.options)
+  } else {
+    hotAPI.reload("data-v-1539753c", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 375 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_vm._l((_vm.items), function(item) {
+    return _c('div', {
+      staticClass: "media"
+    }, [_c('div', {
+      staticClass: "media-left"
+    }, [_c('user-vote-button', {
+      attrs: {
+        "is_login": _vm.isLogin,
+        "answer": item.id,
+        "count": item.votes_count
+      }
+    })], 1), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('h4', {
+      staticClass: "media-heading"
+    }, [_c('a', {
+      attrs: {
+        "href": _vm.getUserUrl(item)
+      }
+    }, [_vm._v("\n                    " + _vm._s(item.user.name) + "\n                ")])]), _vm._v(" "), _c('a', {
+      attrs: {
+        "name": _vm.getAnswerName(item)
+      }
+    }), _vm._v(" "), _c('div', {
+      domProps: {
+        "innerHTML": _vm._s(item.body)
+      }
+    })]), _vm._v(" "), _c('comment', {
+      attrs: {
+        "is_login": _vm.isLogin,
+        "type": "answer",
+        "model": item.id,
+        "count": _vm.getAnswerCommentCount(item)
+      }
+    })], 1)
+  }), _vm._v(" "), _c('nav', [_c('ul', {
+    staticClass: "pagination"
+  }, [(_vm.pagination.current_page > 1) ? _c('li', [_c('a', {
+    attrs: {
+      "href": "#",
+      "aria-label": "Previous"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.changePage(_vm.pagination.current_page - 1)
+      }
+    }
+  }, [_c('span', [_vm._v("«")])])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.pagesNumber), function(page) {
+    return _c('li', {
+      class: [page == _vm.isActived ? 'active' : '']
+    }, [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.changePage(page)
+        }
+      }
+    }, [_vm._v(_vm._s(page))])])
+  }), _vm._v(" "), (_vm.pagination.current_page < _vm.pagination.last_page) ? _c('li', [_c('a', {
+    attrs: {
+      "href": "#",
+      "aria-label": "Next"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.changePage(_vm.pagination.current_page + 1)
+      }
+    }
+  }, [_c('span', [_vm._v("»")])])]) : _vm._e()], 2)])], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-1539753c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

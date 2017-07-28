@@ -37,3 +37,9 @@ Route::get('item/question', function() {
     $question = $questionRepository->getQuestionsItem(20);
     return $question;
 });
+
+Route::get('item/answer', function() {
+    $answerRepository = new \App\Repositories\AnswerRepository();
+    $answer = $answerRepository->getAnswersItem(20);
+    return $answer;
+});

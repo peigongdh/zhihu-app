@@ -40,7 +40,7 @@
                     <div class="panel-body">
                         <question-follow-button is_login="{{ Auth::check() }}"
                                                 question="{{ $question->id }}"></question-follow-button>
-                        <a href="#edui1" class="btn btn-primary pull-right">撰写答案</a>
+                        <a href="#ueditor" class="btn btn-primary pull-right">撰写答案</a>
                     </div>
                 </div>
             </div>
@@ -50,40 +50,13 @@
                         {{ $question->answers_count }} 个答案
                     </div>
                     <div class="panel-body">
-
-                        @foreach($question->answers as $answer)
-                            <div class="media">
-                                <div class="media-left">
-                                    {{--<a href="/user/{{ $answer->user->id }}">--}}
-                                    {{--<img width="36" src="{{ $answer->user->avatar }}"--}}
-                                    {{--alt="{{ $answer->user->name }}">--}}
-                                    {{--</a>--}}
-                                    <user-vote-button is_login="{{ Auth::check() }}"
-                                                      answer="{{ $answer->id }}"
-                                                      count="{{ $answer->votes_count }}"></user-vote-button>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">
-                                        <a href="/user/{{ $answer->user->id }}">
-                                            {{ $answer->user->name }}
-                                        </a>
-                                    </h4>
-                                    <a name="answer_{{ $answer->id }}"></a>
-                                    {!! $answer->body !!}
-                                </div>
-                                <comment is_login="{{ Auth::check() }}"
-                                         type="answer"
-                                         model="{{ $answer->id }}"
-                                         count="{{ $answer->comments->count() }}">
-                                </comment>
-                            </div>
-                        @endforeach
-
+                        <answer-pagination is_login="{{ Auth::check() }}"></answer-pagination>
                         @if(Auth::check())
                             <form action="/question/{{ $question->id }}/answer" method="post">
                             {!! csrf_field() !!}
                             <!-- 编辑器容器 -->
                                 <div class="form-group {{ $errors->has('body') ? ' has-error' : '' }}">
+                                    <a name="ueditor"></a>
                                     <script id="container" name="body" type="text/plain">
                                         {!! old('body') !!}
                                     </script>
@@ -147,11 +120,11 @@
 @section('js')
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
-                @if (Auth::check())
-        var ue = UE.getEditor('container');
-        ue.ready(function () {
-            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
-        });
+        @if (Auth::check())
+            var ue = UE.getEditor('container');
+            ue.ready(function () {
+                ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
+            });
         @endif
 
     </script>
