@@ -19,6 +19,7 @@
 <script>
     import 'babel-polyfill'; // es6 shim
     import myUpload from 'vue-image-crop-upload/upload-2.vue';
+
     let token = document.head.querySelector('meta[name="csrf-token"]');
     export default {
         props: ['avatar'],
@@ -48,7 +49,7 @@
              * [param] imgDataUrl
              * [param] field
              */
-            cropSuccess(imgDataUrl, field){
+            cropSuccess(imgDataUrl, field) {
                 this.imgDataUrl = imgDataUrl;
             },
             /**
@@ -57,7 +58,7 @@
              * [param] jsonData  server api return data, already json encode
              * [param] field
              */
-            cropUploadSuccess(response, field){
+            cropUploadSuccess(response, field) {
                 this.imgDataUrl = response.url;
                 this.toggleShow();
             },
@@ -67,7 +68,7 @@
              * [param] status    server api return error status, like 500
              * [param] field
              */
-            cropUploadFail(status, field){
+            cropUploadFail(status, field) {
                 console.log('-------- upload fail --------');
                 console.log(status);
                 console.log('field: ' + field);

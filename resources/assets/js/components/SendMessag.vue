@@ -4,7 +4,8 @@
                 class="btn btn-default pull-left"
                 v-bind:class="{'btn-primary': voted}"
                 @click="showSendMessageForm"
-        >发送私信</button>
+        >发送私信
+        </button>
 
         <div class="modal fade" id="modal-send-message" tabindex="-1" role="dialog">
             <div class="modal-dialog">
@@ -59,7 +60,7 @@
             store() {
                 axios.post('/api/answer/vote', {'answer': this.answer}).then((response) => {
                     this.voted = response.data.voted
-                response.data.voted ? this.voteCount ++ : this.voteCount --
+                    response.data.voted ? this.voteCount++ : this.voteCount--
                 })
             },
             showSendMessage() {

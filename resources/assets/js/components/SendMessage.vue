@@ -43,7 +43,7 @@
     export default {
         props: ['is_login', 'user'],
         mounted() {
-            if (! this.is_login) {
+            if (!this.is_login) {
                 this.hidden = false;
             }
         },

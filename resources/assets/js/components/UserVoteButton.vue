@@ -12,7 +12,12 @@
     export default {
         props: ['is_login', 'answer', 'count'],
         mounted() {
-            this.updateVoteCount();
+            if (this.is_login) {
+                axios.post('/api/answer/vote/users', {'answer': this.answer}).then((response) => {
+                    this.voted = response.data.voted
+                });
+            }
+            this.voteCount = this.count;
         },
         data() {
             return {
@@ -20,31 +25,33 @@
                 voteCount: 0
             }
         },
+        watch: {
+            answer(newAnswer) {
+                if (this.is_login) {
+                    axios.post('/api/answer/vote/users', {'answer': newAnswer}).then((response) => {
+                        this.voted = response.data.voted
+                    });
+                }
+            },
+            count(newCount) {
+                this.voteCount = newCount;
+            }
+        },
         computed: {
             text() {
                 return this.voteCount
             }
         },
-        updated() {
-            console.log('beforeUpdate: ' + this.answer);
-            this.updateVoteCount();
-        },
         methods: {
-            updateVoteCount() {
-                if (this.is_login) {
-                    axios.post('/api/answer/vote/users', {'answer': this.answer}).then((response) => {
-                        this.voted = response.data.voted
-                    });
-                }
-                this.voteCount = this.count
-            },
             vote() {
                 if (this.is_login) {
                     axios.post('/api/answer/vote', {'answer': this.answer}).then((response) => {
                         this.voted = response.data.voted;
-                        response.data.voted ? this.voteCount ++ : this.voteCount --
-                   })
+                        response.data.voted ? this.voteCount++ : this.voteCount--
+                    })
                 }
+                console.log("method vote: voted = " + this.voted );
+                console.log("method vote: voteCount = " + this.voteCount );
             }
         }
     }

@@ -34,12 +34,12 @@ Route::post('comment', 'CommentController@store');
 
 Route::get('item/question', function() {
     $questionRepository = new \App\Repositories\QuestionRepository();
-    $question = $questionRepository->getQuestionsItem(20);
+    $question = $questionRepository->getQuestionsItem(10);
     return $question;
 });
 
 Route::get('item/answer/{id}', function($questionId) {
     $answerRepository = new \App\Repositories\AnswerRepository();
-    $answer = $answerRepository->getAnswersItem($questionId, 20);
+    $answer = $answerRepository->getAnswersItem($questionId, 5);
     return $answer;
 });

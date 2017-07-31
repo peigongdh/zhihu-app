@@ -41,7 +41,7 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Answer::class, function (Faker\Generator $faker) {
     return [
-        'question_id' => array_random([101]),
+        'question_id' => array_random([1, 2, 3, 4, 5]),
         'user_id' => array_random([1, 2]),
         'body' => $faker->paragraph,
     ];

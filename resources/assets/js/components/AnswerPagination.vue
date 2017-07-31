@@ -23,7 +23,7 @@
             </comment>
         </div>
 
-        <nav>
+        <nav v-if="pagination.last_page > 1">
             <ul class="pagination">
                 <li v-if="pagination.current_page > 1">
                     <a href="#" aria-label="Previous"

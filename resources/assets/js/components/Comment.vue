@@ -69,6 +69,11 @@
                 return this.commentsCount + '评论'
             }
         },
+        watch: {
+            count(newCount) {
+                this.commentsCount = newCount;
+            }
+        },
         methods: {
             store() {
                 if (this.is_login) {
@@ -86,7 +91,7 @@
                         };
                         this.comments.push(newComment);
                         this.body = '';
-                        this.commentsCount ++;
+                        this.commentsCount++;
                     })
                 }
             },
