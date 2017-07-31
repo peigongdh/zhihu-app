@@ -31,8 +31,8 @@ class AnswerRepository
         return $answer->comments;
     }
 
-    public function getAnswersItem($paginate) {
-        $questions = Answer::with('comments', 'comments.user')->with('user')->paginate($paginate);
+    public function getAnswersItem($questionId, $paginate) {
+        $questions = Answer::with('comments', 'comments.user')->with('user')->where('question_id', '=', $questionId)->paginate($paginate);
         return $questions;
     }
 

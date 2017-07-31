@@ -38,8 +38,8 @@ Route::get('item/question', function() {
     return $question;
 });
 
-Route::get('item/answer', function() {
+Route::get('item/answer/{id}', function($questionId) {
     $answerRepository = new \App\Repositories\AnswerRepository();
-    $answer = $answerRepository->getAnswersItem(20);
+    $answer = $answerRepository->getAnswersItem($questionId, 20);
     return $answer;
 });
