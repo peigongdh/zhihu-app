@@ -50,7 +50,7 @@
                         {{ $question->answers_count }} 个答案
                     </div>
                     <div class="panel-body">
-                        <answer-pagination is_login="{{ Auth::check() }}"></answer-pagination>
+                        <answer-pagination is_login="{{ Auth::check() }}" question="{{ $question->id }}"></answer-pagination>
                         @if(Auth::check())
                             <form action="/question/{{ $question->id }}/answer" method="post">
                             {!! csrf_field() !!}

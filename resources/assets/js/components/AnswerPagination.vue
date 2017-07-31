@@ -49,7 +49,7 @@
 
 <script>
     export default {
-        props: ['is_login'],
+        props: ['is_login', 'question'],
         data() {
             return {
                 pagination: {
@@ -96,7 +96,7 @@
         methods: {
             fetchItems(page) {
                 var data = {page: page};
-                axios.get('/api/item/answer?page=' + data.page).then((response) => {
+                axios.get('/api/item/answer/' + this.question + '?page=' + data.page).then((response) => {
                     this.items = response.data.data;
                     this.pagination = response.data;
                 });
