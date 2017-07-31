@@ -12,12 +12,7 @@
     export default {
         props: ['is_login', 'answer', 'count'],
         mounted() {
-            if (this.is_login) {
-                axios.post('/api/answer/vote/users', {'answer': this.answer}).then((response) => {
-                    this.voted = response.data.voted
-                });
-            }
-            this.voteCount = this.count
+            this.updateVoteCount();
         },
         data() {
             return {
@@ -30,7 +25,19 @@
                 return this.voteCount
             }
         },
+        updated() {
+            console.log('beforeUpdate: ' + this.answer);
+            this.updateVoteCount();
+        },
         methods: {
+            updateVoteCount() {
+                if (this.is_login) {
+                    axios.post('/api/answer/vote/users', {'answer': this.answer}).then((response) => {
+                        this.voted = response.data.voted
+                    });
+                }
+                this.voteCount = this.count
+            },
             vote() {
                 if (this.is_login) {
                     axios.post('/api/answer/vote', {'answer': this.answer}).then((response) => {

@@ -5,7 +5,7 @@
                 <user-vote-button :is_login="isLogin"
                                   :answer="item.id"
                                   :count="item.votes_count">
-              </user-vote-button>
+                </user-vote-button>
             </div>
             <div class="media-body">
                 <h4 class="media-heading">
