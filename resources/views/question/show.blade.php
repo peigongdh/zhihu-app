@@ -14,15 +14,17 @@
                     <div class="panel-body content">
                         {!! $question->body !!}
                     </div>
-                    <div class="actions">
-                        @if(Auth::check() && Auth::user()->owns($question))
+                    @if(Auth::check() && Auth::user()->owns($question))
+                        <div class="actions">
                             <span class="edit"><a href="/question/{{ $question->id }}/edit">编辑</a></span>
                             <form action="/question/{{ $question->id }}" method="POST" class="delete-form">
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
                                 <button class="button delete-button is-naked">删除</button>
                             </form>
-                        @endif
+                        </div>
+                    @endif
+                    <div class="actions">
                         <comment is_login="{{ Auth::check() }}"
                                  type="question"
                                  model="{{ $question->id }}"
@@ -50,11 +52,12 @@
                         {{ $question->answers_count }} 个答案
                     </div>
                     <div class="panel-body">
-                        <answer-pagination is_login="{{ Auth::check() }}" question="{{ $question->id }}"></answer-pagination>
+                        <answer-pagination is_login="{{ Auth::check() }}"
+                                           question="{{ $question->id }}"></answer-pagination>
                         @if(Auth::check())
                             <form action="/question/{{ $question->id }}/answer" method="post">
-                            {!! csrf_field() !!}
-                            <!-- 编辑器容器 -->
+                                {!! csrf_field() !!}
+                                        <!-- 编辑器容器 -->
                                 <div class="form-group {{ $errors->has('body') ? ' has-error' : '' }}">
                                     <a name="ueditor"></a>
                                     <script id="container" name="body" type="text/plain">
@@ -117,14 +120,14 @@
             </div>
         </div>
     </div>
-@section('js')
-    <!-- 实例化编辑器 -->
+    @section('js')
+            <!-- 实例化编辑器 -->
     <script type="text/javascript">
-        @if (Auth::check())
-            var ue = UE.getEditor('container');
-            ue.ready(function () {
-                ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
-            });
+                @if (Auth::check())
+        var ue = UE.getEditor('container');
+        ue.ready(function () {
+            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
+        });
         @endif
 
     </script>

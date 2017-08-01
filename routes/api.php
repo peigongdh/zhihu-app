@@ -32,14 +32,5 @@ Route::get('question/{id}/comments', 'CommentController@question');
 
 Route::post('comment', 'CommentController@store');
 
-Route::get('item/question', function() {
-    $questionRepository = new \App\Repositories\QuestionRepository();
-    $question = $questionRepository->getQuestionsItem(10);
-    return $question;
-});
-
-Route::get('item/answer/{id}', function($questionId) {
-    $answerRepository = new \App\Repositories\AnswerRepository();
-    $answer = $answerRepository->getAnswersItem($questionId, 5);
-    return $answer;
-});
+Route::get('item/question', 'Api\QuestionController@index');
+Route::get('item/answer/{id}', 'Api\AnswerController@index');

@@ -24,8 +24,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = $this->questionRepository->getQuestionsFeed();
-        return view('question.index', compact('questions'));
+        return view('question.index');
     }
 
     /**

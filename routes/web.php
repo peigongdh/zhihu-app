@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'QuestionController@index');
+Route::get('/topic/{id}', 'TopicController@topicQuestion');
 
 Auth::routes();
 

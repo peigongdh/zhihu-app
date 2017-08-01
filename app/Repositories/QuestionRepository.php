@@ -31,13 +31,26 @@ class QuestionRepository
         return Question::find($id);
     }
 
-    public function getQuestionsFeed() {
+    public function getQuestionsFeed()
+    {
         $questions = Question::published()->latest('updated_at')->with('user')->get();
         return $questions;
     }
 
-    public function getQuestionsItem($paginate) {
+    public function getQuestionsItem($paginate)
+    {
         $questions = Question::published()->latest('updated_at')->with('user')->paginate($paginate);
+        return $questions;
+    }
+
+    public function getQuestionsItemByTopic($topicId, $paginate)
+    {
+        $questions = Question::published()
+            ->with('user')
+            ->leftJoin('question_topic', 'questions.id', '=', 'question_topic.question_id')
+            ->where('question_topic.topic_id', '=', $topicId)
+            ->latest('questions.updated_at')
+            ->paginate($paginate);
         return $questions;
     }
 

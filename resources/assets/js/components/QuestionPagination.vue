@@ -42,6 +42,7 @@
 
 <script>
     export default {
+        props: ['topic'],
         data() {
             return {
                 pagination: {
@@ -86,7 +87,7 @@
         methods: {
             fetchItems(page) {
                 var data = {page: page};
-                axios.get('/api/item/question?page=' + data.page).then((response) => {
+                axios.get('/api/item/question?topic=' + this.topic + '&page=' + data.page).then((response) => {
                     this.items = response.data.data;
                     this.pagination = response.data;
                 });
