@@ -40,7 +40,7 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  StoreQuestionRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreQuestionRequest $request)
@@ -84,11 +84,9 @@ class QuestionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param StoreQuestionRequest $request
+     * @param $id
+     * @return mixed
      */
     public function update(StoreQuestionRequest $request, $id)
     {

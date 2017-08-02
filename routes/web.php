@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', 'QuestionController@index');
-Route::get('/topic/{id}', 'TopicController@topicQuestion');
-
 Auth::routes();
+
+Route::get('/', 'QuestionController@index');
+Route::get('/user/{id}', 'UserController@index');
+
+Route::get('/topic/{id}', 'TopicController@topicQuestion');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -26,9 +28,7 @@ Route::resource('question', 'QuestionController', ['names' =>
         'show' => 'questions.show',
     ]
 ]);
-
 Route::post('question/{question}/answer', 'AnswerController@store');
-
 Route::get('question/{question}/follow', 'QuestionFollowController@follow');
 
 Route::get('notification', 'NotificationController@index');

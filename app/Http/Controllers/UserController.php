@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index($userId)
+    {
+        $user = User::find($userId);
+        return view('user.index', compact('user'));
+    }
+
     public function avatar()
     {
         return view('user.avatar');
