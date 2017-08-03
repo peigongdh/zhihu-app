@@ -50,8 +50,6 @@
                         response.data.voted ? this.voteCount++ : this.voteCount--
                     })
                 }
-                console.log("method vote: voted = " + this.voted );
-                console.log("method vote: voteCount = " + this.voteCount );
             }
         }
     }

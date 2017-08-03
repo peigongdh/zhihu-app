@@ -53,7 +53,7 @@ class QuestionController extends Controller
         ];
         $question = $this->questionRepository->create($data);
         $question->topics()->attach($topics);
-        return redirect()->route('questions.show', [$question->id]);
+        return redirect()->route('question.show', [$question->id]);
     }
 
     /**
@@ -99,7 +99,7 @@ class QuestionController extends Controller
 
         $topics = $this->questionRepository->normalizeTopic($request->get('topics'));
         $question->topics()->sync($topics);
-        return redirect()->route('questions.show', [$question->id]);
+        return redirect()->route('question.show', [$question->id]);
     }
 
     /**

@@ -24,10 +24,11 @@ Route::get('email/verify/{token}', ['as' => 'email.verify', 'uses' => 'EmailCont
 
 Route::resource('question', 'QuestionController', ['names' =>
     [
-        'create' => 'questions.create',
-        'show' => 'questions.show',
+        'create' => 'question.create',
+        'show' => 'question.show',
     ]
 ]);
+
 Route::post('question/{question}/answer', 'AnswerController@store');
 Route::get('question/{question}/follow', 'QuestionFollowController@follow');
 
