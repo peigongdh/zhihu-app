@@ -26,6 +26,7 @@ class AnswerController extends Controller
         ];
         $answer = $this->answerRepository->create($data);
         $answer->question()->increment('answers_count');
+        user()->increment('answers_count');
         return back();
     }
 }

@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function __construct()
+
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
         $this->middleware('auth');
+        $this->userRepository = $userRepository;
     }
 
     public function index($userId)
     {
-        $user = User::find($userId);
+        $user = $this->userRepository->byId($userId);
         return view('user.index', compact('user'));
     }
 

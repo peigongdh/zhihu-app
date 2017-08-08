@@ -71,12 +71,14 @@ class CommentController extends Controller
         $type = request('type');
         $body = request('body');
         $model = $this->getModelNameFromType($type);
+        $user = user('api');
         $comment = $this->commentRepository->create([
             'commentable_id' => $id,
             'commentable_type' => $model,
-            'user_id' => user('api')->id,
+            'user_id' => $user->id,
             'body' => $body
         ]);
+        $user->increment('comments_count');
         return $comment;
     }
 

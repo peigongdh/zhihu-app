@@ -53,6 +53,7 @@ class QuestionController extends Controller
         ];
         $question = $this->questionRepository->create($data);
         $question->topics()->attach($topics);
+        user()->increment('questions_count');
         return redirect()->route('question.show', [$question->id]);
     }
 

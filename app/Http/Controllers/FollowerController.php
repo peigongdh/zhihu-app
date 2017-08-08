@@ -28,15 +28,18 @@ class FollowerController extends Controller
 
     public function follow(Request $request)
     {
+        $user = user('api');
         $userToFollow = $this->userRepository->byId($request->get('user'));
-        $followed = user('api')->followThisUser($userToFollow->id);
+        $followed = $user->followThisUser($userToFollow->id);
 
         if (count($followed['attached']) > 0) {
             $userToFollow->notify(new NewUserFollowNotification());
             $userToFollow->increment('followers_count');
+            $user->increment('followings_count');
             return response()->json(['followed' => true]);
         }
         $userToFollow->decrement('followers_count');
+        $user->decrement('followings_count');
         return response()->json(['followed' => false]);
     }
 }
