@@ -29,6 +29,10 @@ class FollowerController extends Controller
     public function follow(Request $request)
     {
         $user = user('api');
+        // 禁止自己关注自己
+        if ($user->id == $request->get('user')) {
+            return response()->json(['followed' => false]);
+        }
         $userToFollow = $this->userRepository->byId($request->get('user'));
         $followed = $user->followThisUser($userToFollow->id);
 

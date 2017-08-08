@@ -20,20 +20,32 @@ class AnswerRepository
         return $answer;
     }
 
-    public function byId($answerId)
+    public function byId($id)
     {
-        return Answer::find($answerId);
+
+        return Answer::where('is_hidden', '=', 'F')->findOrFail($id);
     }
 
     public function getAnswerCommentsById($id)
     {
-        $answer = Answer::with('comments', 'comments.user')->where('id', $id)->first();
-        return $answer->comments;
+        $answer = Answer::with('comments', 'comments.user')
+            ->where('id', $id)
+            ->where('is_hidden', '=', 'F')
+            ->first();
+        if ($answer) {
+            return $answer->comments;
+        }
+        return null;
     }
 
-    public function getAnswersItem($questionId, $paginate) {
-        $questions = Answer::with('comments', 'comments.user')->with('user')->where('question_id', '=', $questionId)->paginate($paginate);
-        return $questions;
+    public function getAnswersItem($questionId, $paginate)
+    {
+        $answers = Answer::with('comments', 'comments.user')
+            ->with('user')
+            ->where('question_id', '=', $questionId)
+            ->where('is_hidden', '=', 'F')
+            ->paginate($paginate);
+        return $answers;
     }
 
 }

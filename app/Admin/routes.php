@@ -15,4 +15,5 @@ Route::group([
     $router->resource('/zhihu/users', UserController::class);
     $router->resource('/zhihu/questions', QuestionController::class);
     $router->resource('/zhihu/answers', AnswerController::class);
+    $router->resource('/zhihu/comments', CommentController::class);
 });

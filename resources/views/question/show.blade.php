@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if ($question->user_id !== user()->id)
+                        @if (Auth::check() && $question->user_id !== user()->id)
                         <user-follow-button is_login="{{ Auth::check() }}"
                                             user="{{ $question->user_id }}"></user-follow-button>
                         <send-message is_login="{{ Auth::check() }}" user="{{ $question->user_id }}"></send-message>

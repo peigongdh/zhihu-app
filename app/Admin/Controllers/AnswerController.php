@@ -15,6 +15,11 @@ class AnswerController extends Controller
 {
     use ModelForm;
 
+    private $IS_HIDDEN_SWITCH = [
+        'on' => ['value' => 'F', 'text' => '正常', 'color' => 'success'],
+        'off' => ['value' => 'T', 'text' => '隐藏', 'color' => 'danger'],
+    ];
+
     /**
      * Index interface.
      *
@@ -78,6 +83,7 @@ class AnswerController extends Controller
                 return "<a href='/question/{$this->question_id}#answer_{$this->id}'>链接</a>";
             });
             $grid->column('user_id');
+            $grid->is_hidden()->switch($this->IS_HIDDEN_SWITCH);
 
             $grid->created_at();
             $grid->updated_at();
@@ -96,6 +102,7 @@ class AnswerController extends Controller
             $form->display('id', 'ID');
             $form->textarea('body')->rows(10);
             $form->text('user_id');
+            $form->switch('is_hidden')->states($this->IS_HIDDEN_SWITCH);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');

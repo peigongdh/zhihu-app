@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Repositories\QuestionRepository;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
 
 class QuestionController extends Controller
 {

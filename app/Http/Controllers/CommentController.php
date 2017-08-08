@@ -58,8 +58,7 @@ class CommentController extends Controller
      */
     public function question($id)
     {
-        $question = Question::with('comments', 'comments.user')->where('id', $id)->first();
-        return $question->comments;
+        return $this->questionRepository->getQuestionCommentsById($id);
     }
 
     /**
@@ -78,6 +77,7 @@ class CommentController extends Controller
             'user_id' => $user->id,
             'body' => $body
         ]);
+        $model::find($id)->increment('comments_count');
         $user->increment('comments_count');
         return $comment;
     }
