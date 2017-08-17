@@ -47,6 +47,8 @@ class QuestionFollowController extends Controller
         } else {
             $question->decrement('followers_count');
         }
+
+        $this->questionRepository->pullUserFollowQuestionToTimeline($questionId);
         return response()->json(['followed' => $followed]);
     }
 }

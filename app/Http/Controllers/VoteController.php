@@ -38,11 +38,13 @@ class VoteController extends Controller
             $answer->increment('votes_count');
             $user->increment('likes_count');
             $answer->user()->increment('favorites_count');
+            $this->answerRepository->pullUserVoteAnswerToTimeline($answer->id, 'F');
             return response()->json(['voted' => true]);
         }
         $answer->decrement('votes_count');
         $user->decrement('likes_count');
         $answer->user()->decrement('favorites_count');
+        $this->answerRepository->pullUserVoteAnswerToTimeline($answer->id, 'T');
         return response()->json(['voted' => false]);
     }
 }

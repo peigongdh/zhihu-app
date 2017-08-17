@@ -27,6 +27,7 @@ class AnswerController extends Controller
         $answer = $this->answerRepository->create($data);
         $answer->question()->increment('answers_count');
         user()->increment('answers_count');
+        $this->answerRepository->pullUserNewAnswerToTimeline($answer->id);
         return back();
     }
 }

@@ -11,6 +11,8 @@ namespace App\Repositories;
 
 use App\Question;
 use App\Topic;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class QuestionRepository
 {
@@ -77,5 +79,27 @@ class QuestionRepository
             return $question->comments;
         }
         return null;
+    }
+
+    public function pullUserNewQuestionToTimeline($questionId) {
+        $queueData = [
+            'event' => config('constants.message_user_new_question'),
+            'user_id' => Auth::id(),
+            'post_id' => $questionId,
+            'ts' => time()
+        ];
+        $offset = Redis::rpush(config('constants.message_timeline'), json_encode($queueData));
+        return $offset;
+    }
+
+    public function pullUserFollowQuestionToTimeline($questionId) {
+        $queueData = [
+            'event' => config('constants.message_user_follow_question'),
+            'user_id' => Auth::id(),
+            'post_id' => $questionId,
+            'ts' => time()
+        ];
+        $offset = Redis::rpush(config('constants.message_timeline'), json_encode($queueData));
+        return $offset;
     }
 }

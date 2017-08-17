@@ -56,13 +56,7 @@ class QuestionController extends Controller
         $question = $this->questionRepository->create($data);
         $question->topics()->attach($topics);
         user()->increment('questions_count');
-        $queueData = [
-            'event' => config('constants.message_user_new_question'),
-            'user_id' => Auth::id(),
-            'post_id' => $question->id,
-            'ts' => time()
-        ];
-        Redis::rpush(json_encode($queueData));
+        $this->questionRepository->pullUserNewQuestionToTimeline($question->id);
         return redirect()->route('question.show', [$question->id]);
     }
 
