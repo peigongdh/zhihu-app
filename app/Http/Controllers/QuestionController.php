@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Repositories\QuestionRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Mockery\Exception;
 
 class QuestionController extends Controller
@@ -55,6 +56,13 @@ class QuestionController extends Controller
         $question = $this->questionRepository->create($data);
         $question->topics()->attach($topics);
         user()->increment('questions_count');
+        $queueData = [
+            'event' => config('constants.message_user_new_question'),
+            'user_id' => Auth::id(),
+            'post_id' => $question->id,
+            'ts' => time()
+        ];
+        Redis::rpush(json_encode($queueData));
         return redirect()->route('question.show', [$question->id]);
     }
 
