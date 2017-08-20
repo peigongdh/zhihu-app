@@ -81,22 +81,12 @@ class QuestionRepository
         return null;
     }
 
-    public function pullUserNewQuestionToTimeline($questionId) {
-        $queueData = [
-            'event' => config('constants.message_user_new_question'),
-            'user_id' => Auth::id(),
-            'post_id' => $questionId,
-            'ts' => time()
-        ];
-        $offset = Redis::rpush(config('constants.message_timeline'), json_encode($queueData));
-        return $offset;
-    }
-
-    public function pullUserFollowQuestionToTimeline($questionId) {
+    public function pullUserFollowQuestionToTimeline($questionId, $undo) {
         $queueData = [
             'event' => config('constants.message_user_follow_question'),
             'user_id' => Auth::id(),
             'post_id' => $questionId,
+            'undo' => $undo,
             'ts' => time()
         ];
         $offset = Redis::rpush(config('constants.message_timeline'), json_encode($queueData));

@@ -21,13 +21,14 @@ class MessageController extends Controller
 
     public function store()
     {
-        $userId = request('user');
+        $user = user('api');
+        $toUserId = request('user');
         $body = request('body');
         $message = $this->messageRepository->create([
-            'to_user_id' => $userId,
-            'from_user_id' => user('api')->id,
+            'to_user_id' => $toUserId,
+            'from_user_id' => $user->id,
             'body' => $body,
-            'dialog_id' => time() . Auth::id()
+            'dialog_id' => time() . $user->id
         ]);
 
         return response()->json(['status' => !!$message]);

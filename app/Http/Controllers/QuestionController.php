@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestionRequest;
+use App\Repositories\ActionRepository;
 use App\Repositories\QuestionRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
@@ -13,10 +14,13 @@ class QuestionController extends Controller
 
     protected $questionRepository;
 
-    public function __construct(QuestionRepository $questionRepository)
+    protected $actionRepository;
+
+    public function __construct(QuestionRepository $questionRepository, ActionRepository $actionRepository)
     {
         $this->middleware('auth')->except(['index', 'show']);
         $this->questionRepository = $questionRepository;
+        $this->actionRepository = $actionRepository;
     }
 
     /**
@@ -47,16 +51,25 @@ class QuestionController extends Controller
      */
     public function store(StoreQuestionRequest $request)
     {
+        $user = user();
         $topics = $this->questionRepository->normalizeTopic($request->get('topics'));
-        $data = [
+        $questionData = [
             'title' => $request->get('title'),
             'body' => $request->get('body'),
-            'user_id' => Auth::id()
+            'user_id' => $user->id,
         ];
-        $question = $this->questionRepository->create($data);
+        $question = $this->questionRepository->create($questionData);
         $question->topics()->attach($topics);
-        user()->increment('questions_count');
-        $this->questionRepository->pullUserNewQuestionToTimeline($question->id);
+        $user->increment('questions_count');
+
+        $actionData = [
+            'event' => config('constants.action_user_new_question'),
+            'user_id' => $user->id,
+            'post_id' => $question->id,
+        ];
+        $action = $this->actionRepository->create($actionData);
+        $this->actionRepository->pullActionToTimeline($user->id, $action->id);
+
         return redirect()->route('question.show', [$question->id]);
     }
 

@@ -50,27 +50,4 @@ class AnswerRepository
         return $answers;
     }
 
-    public function pullUserNewAnswerToTimeline($answerId) {
-        $queueData = [
-            'event' => config('constants.message_user_new_answer'),
-            'user_id' => Auth::id(),
-            'post_id' => $answerId,
-            'ts' => time()
-        ];
-        $offset = Redis::rpush(config('constants.message_timeline'), json_encode($queueData));
-        return $offset;
-    }
-
-    public function pullUserVoteAnswerToTimeline($answerId, $undo) {
-        $queueData = [
-            'event' => config('constants.message_user_vote_answer'),
-            'user_id' => Auth::id(),
-            'post_id' => $answerId,
-            'undo' => $undo,
-            'ts' => time()
-        ];
-        $offset = Redis::rpush(config('constants.message_timeline'), json_encode($queueData));
-        return $offset;
-    }
-
 }
