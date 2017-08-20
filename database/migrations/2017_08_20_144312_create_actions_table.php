@@ -16,11 +16,11 @@ class CreateActionsTable extends Migration
         Schema::create('actions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
-            $table->unsignedInteger('post_id');
+            $table->morphs('actionable');
             $table->string('event');
             $table->string('undo', 8)->default('F');
             $table->timestamps();
-            $table->index(['user_id', 'post_id', 'event']);
+            $table->index(['user_id', 'actionable_id', 'actionable_type', 'event']);
         });
     }
 

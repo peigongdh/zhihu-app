@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Repositories\ActionRepository;
 use App\Repositories\AnswerRepository;
 use App\User;
@@ -47,7 +48,8 @@ class VoteController extends Controller
             $actionData = [
                 'event' => config('constants.action_user_vote_answer'),
                 'user_id' => $user->id,
-                'post_id' => $answer->id,
+                'actionable_id' => $answer->id,
+                'actionable_type' => Answer::class,
             ];
             $action = $this->actionRepository->create($actionData);
             $this->actionRepository->pullActionToTimeline($user->id, $action->id);
@@ -61,7 +63,8 @@ class VoteController extends Controller
         $actionWhereData = [
             'event' => config('constants.action_user_vote_answer'),
             'user_id' => $user->id,
-            'post_id' => $answer->id,
+            'actionable_id' => $answer->id,
+            'actionable_type' => Answer::class,
         ];
         $actionSetData = [
             'undo' => 'T'

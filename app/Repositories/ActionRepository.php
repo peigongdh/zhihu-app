@@ -10,7 +10,10 @@ namespace App\Repositories;
 
 
 use App\Action;
+use App\Answer;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Support\Facades\Redis;
+use Mockery\Exception;
 
 class ActionRepository
 {
@@ -35,6 +38,19 @@ class ActionRepository
         ]);
         $offset = Redis::rpush(config('constants.action_timeline'), $data);
         return $offset;
+    }
+
+    public function getActionItem($userId, $paginate)
+    {
+        $actions = Action::notUndo()
+            ->with(['actionable' => function ($query) {
+                return $query->with('question');
+            }])
+            ->latest('updated_at')
+            ->where('user_id', $userId)
+            // ->where('actionable_type', Answer::class)
+            ->paginate($paginate);
+        return $actions;
     }
 
 }

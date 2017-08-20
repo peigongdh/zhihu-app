@@ -12,13 +12,14 @@ class Comment extends Model
         'user_id', 'body', 'commentable_id', 'commentable_type'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function commentable()
     {
         return $this->morphTo();
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }

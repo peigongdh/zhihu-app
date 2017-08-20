@@ -22,4 +22,9 @@ class Answer extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function actions()
+    {
+        return $this->morphMany(Action::class, 'actionable');
+    }
 }

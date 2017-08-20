@@ -102,4 +102,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'to_user_id');
     }
+
+    public function actions()
+    {
+        return $this->hasMany(Action::class);
+    }
+
+    public function timelines()
+    {
+        return $this->hasMany(Timeline::class);
+    }
 }

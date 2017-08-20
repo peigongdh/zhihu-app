@@ -24,6 +24,8 @@ Vue.component('comment', require('./components/Comment.vue'));
 Vue.component('user-avatar', require('./components/Avatar.vue'));
 Vue.component('question-pagination', require('./components/QuestionPagination.vue'));
 Vue.component('answer-pagination', require('./components/AnswerPagination.vue'));
+Vue.component('action-pagination', require('./components/ActionPagination.vue'));
+Vue.component('timeline-pagination', require('./components/TimelinePagination.vue'));
 
 const app = new Vue({
     el: '#app'

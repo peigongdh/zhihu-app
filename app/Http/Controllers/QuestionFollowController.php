@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Question;
 use App\Repositories\ActionRepository;
 use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
@@ -55,7 +56,8 @@ class QuestionFollowController extends Controller
             $actionData = [
                 'event' => config('constants.action_user_follow_question'),
                 'user_id' => $user->id,
-                'post_id' => $questionId,
+                'actionable_id' => $question->id,
+                'actionable_type' => Question::class,
             ];
             $action = $this->actionRepository->create($actionData);
             $this->actionRepository->pullActionToTimeline($user->id, $action->id);
@@ -65,7 +67,8 @@ class QuestionFollowController extends Controller
             $actionWhereData = [
                 'event' => config('constants.action_user_follow_question'),
                 'user_id' => $user->id,
-                'post_id' => $questionId,
+                'actionable_id' => $question->id,
+                'actionable_type' => Question::class,
             ];
             $actionSetData = [
                 'undo' => 'T'

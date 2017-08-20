@@ -47,3 +47,6 @@ Route::post('setting', 'SettingController@store');
 Route::get('index', 'InboxController@index');
 Route::get('index/{dialogId}', 'InboxController@show');
 Route::post('index/{dialogId}/store', 'InboxController@store');
+
+Route::get('action', 'ActionController@index');
+Route::get('timeline', 'TimelineController@index');

@@ -10,8 +10,6 @@ namespace App\Repositories;
 
 
 use App\Answer;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
 
 class AnswerRepository
 {

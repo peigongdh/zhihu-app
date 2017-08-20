@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestionRequest;
+use App\Question;
 use App\Repositories\ActionRepository;
 use App\Repositories\QuestionRepository;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +66,8 @@ class QuestionController extends Controller
         $actionData = [
             'event' => config('constants.action_user_new_question'),
             'user_id' => $user->id,
-            'post_id' => $question->id,
+            'actionable_id' => $question->id,
+            'actionable_type' => Question::class,
         ];
         $action = $this->actionRepository->create($actionData);
         $this->actionRepository->pullActionToTimeline($user->id, $action->id);

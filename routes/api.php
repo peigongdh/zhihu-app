@@ -34,3 +34,6 @@ Route::post('comment', 'CommentController@store');
 
 Route::get('item/question', 'Api\QuestionController@index');
 Route::get('item/answer/{id}', 'Api\AnswerController@index');
+
+Route::get('item/action', 'Api\ActionController@index');
+Route::get('item/timeline', 'Api\TimelineController@index');

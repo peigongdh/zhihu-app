@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Http\Requests\StoreAnswerRequest;
 use App\Repositories\ActionRepository;
 use App\Repositories\AnswerRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
@@ -36,7 +36,8 @@ class AnswerController extends Controller
         $actionData = [
             'event' => config('constants.action_user_new_answer'),
             'user_id' => $user->id,
-            'post_id' => $answer->id,
+            'actionable_id' => $answer->id,
+            'actionable_type' => Answer::class,
         ];
         $action = $this->actionRepository->create($actionData);
         $this->actionRepository->pullActionToTimeline($user->id, $action->id);

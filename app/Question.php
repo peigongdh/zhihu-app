@@ -25,7 +25,8 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
-    public function follows() {
+    public function follows()
+    {
         return $this->belongsToMany(User::class, 'user_question')->withTimestamps();
     }
 
@@ -37,5 +38,15 @@ class Question extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function actions()
+    {
+        return $this->morphMany(Action::class, 'actionable');
+    }
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class, 'id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Question;
 use App\Repositories\AnswerRepository;
 use App\Repositories\CommentRepository;
@@ -88,6 +89,6 @@ class CommentController extends Controller
      */
     public function getModelNameFromType($type)
     {
-        return $type == 'answer' ? 'App\Answer' : 'App\Question';
+        return $type == 'answer' ? Answer::class : Question::class;
     }
 }
