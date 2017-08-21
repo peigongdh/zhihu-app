@@ -1,18 +1,35 @@
 <template>
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
-            <div class="media" v-for="item in items">
-                <div class="media-left">
-                    <a href="">
-                        <img width="48" :src="item.user.avatar" :alt="item.user.name">
-                    </a>
+            <div class="panel panel-default" v-for="item in items">
+                    <div class="panel-heading">
+                        {{ getEventName(item.event) }}
+                    </div>
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="">
+                                <img width="36" :src="item.user.avatar" :alt="item.user.name">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <a :href="getQuestionUrl(item)">
+                                    {{ item.actionable.question.title }}
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        <a :href="getQuestionUrl(item)">
-                            {{ item.title }}
-                        </a>
-                    </h4>
+                <div class="collapse" :id="getCollapseItemId(item)">
+                    <div class="panel-body">
+                        <div v-html="item.actionable.body"></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <a class="pull-right" data-toggle="collapse" :href="getCollapseItemHref(item)" aria-expanded="true" :aria-controls="getCollapseItemId(item)">
+                        展开/折叠
+                    </a>
                 </div>
             </div>
             <nav v-if="pagination.last_page > 1">
@@ -97,7 +114,22 @@
                 this.fetchItems(page);
             },
             getQuestionUrl(item) {
-                return '/question/' + item.id;
+                return '/question/' + item.actionable.question.id;
+            },
+            getCollapseItemId(item) {
+                return 'answerBody' + item.id;
+            },
+            getCollapseItemHref(item) {
+                return '#answerBody' + item.id;
+            },
+            getEventName(event) {
+                let event_map = {
+                    "USER_NEW_QUESTION": "创建了问题",
+                    "USER_NEW_ANSWER": "回答了问题",
+                    "USER_VOTE_ANSWER": "赞同了回答",
+                    "USER_FOLLOW_QUESTION": "关注了问题",
+                };
+                return event_map[event];
             }
         }
     }

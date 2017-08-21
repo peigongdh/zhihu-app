@@ -43,9 +43,11 @@ class ActionRepository
     public function getActionItem($userId, $paginate)
     {
         $actions = Action::notUndo()
-            ->with(['actionable' => function ($query) {
-                return $query->with('question');
-            }])
+            ->with([
+                'user',
+                'actionable' => function ($query) {
+                    return $query->with('question');
+                }])
             ->latest('updated_at')
             ->where('user_id', $userId)
             // ->where('actionable_type', Answer::class)
