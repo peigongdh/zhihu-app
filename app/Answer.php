@@ -27,4 +27,10 @@ class Answer extends Model
     {
         return $this->morphMany(Action::class, 'actionable');
     }
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_hidden', 'F');
+    }
+    
 }

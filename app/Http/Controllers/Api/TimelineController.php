@@ -13,7 +13,7 @@ class TimelineController extends Controller
 
     public function __construct(TimelineRepository $timelineRepository)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth:api');
         $this->timelineRepository = $timelineRepository;
     }
 

@@ -17,7 +17,7 @@ class ActionController extends Controller
      */
     public function __construct(ActionRepository $actionRepository)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth:api');
         $this->actionRepository = $actionRepository;
     }
 

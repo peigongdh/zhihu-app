@@ -16,7 +16,9 @@ class QuestionRepository
 {
     public function byIdWithTopicsAndAnswers($id)
     {
-        $question = Question::with(['topics', 'answers'])->where('is_hidden', '=', 'F')->findOrFail($id);
+        $question = Question::published()
+            ->with(['topics', 'answers'])
+            ->findOrFail($id);
         return $question;
     }
 
@@ -28,18 +30,26 @@ class QuestionRepository
 
     public function byId($id)
     {
-        return Question::where('is_hidden', '=', 'F')->findOrFail($id);
+        $question = Question::published()
+            ->findOrFail($id);
+        return $question;
     }
 
     public function getQuestionsFeed()
     {
-        $questions = Question::published()->latest('updated_at')->with('user')->where('is_hidden', '=', 'F')->get();
+        $questions = Question::published()
+            ->latest('updated_at')
+            ->with('user')
+            ->get();
         return $questions;
     }
 
     public function getQuestionsItem($paginate)
     {
-        $questions = Question::published()->latest('updated_at')->with('user')->where('is_hidden', '=', 'F')->paginate($paginate);
+        $questions = Question::published()
+            ->latest('updated_at')
+            ->with('user')
+            ->paginate($paginate);
         return $questions;
     }
 
@@ -50,7 +60,6 @@ class QuestionRepository
             ->leftJoin('question_topic', 'questions.id', '=', 'question_topic.question_id')
             ->where('question_topic.topic_id', '=', $topicId)
             ->latest('questions.updated_at')
-            ->where('is_hidden', '=', 'F')
             ->paginate($paginate);
         return $questions;
     }
@@ -69,9 +78,9 @@ class QuestionRepository
 
     public function getQuestionCommentsById($id)
     {
-        $question = Question::with('comments', 'comments.user')
+        $question = Question::published()
+            ->with('comments', 'comments.user')
             ->where('id', $id)
-            ->where('is_hidden', '=', 'F')
             ->first();
         if ($question) {
             return $question->comments;

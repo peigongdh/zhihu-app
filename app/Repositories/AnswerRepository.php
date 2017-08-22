@@ -23,14 +23,14 @@ class AnswerRepository
     public function byId($id)
     {
 
-        return Answer::where('is_hidden', '=', 'F')->findOrFail($id);
+        return Answer::published()->findOrFail($id);
     }
 
     public function getAnswerCommentsById($id)
     {
-        $answer = Answer::with('comments', 'comments.user')
+        $answer = Answer::published()
+            ->with('comments', 'comments.user')
             ->where('id', $id)
-            ->where('is_hidden', '=', 'F')
             ->first();
         if ($answer) {
             return $answer->comments;
@@ -40,10 +40,10 @@ class AnswerRepository
 
     public function getAnswersItem($questionId, $paginate)
     {
-        $answers = Answer::with('comments', 'comments.user')
+        $answers = Answer::published()
+            ->with('comments', 'comments.user')
             ->with('user')
             ->where('question_id', '=', $questionId)
-            ->where('is_hidden', '=', 'F')
             ->paginate($paginate);
         return $answers;
     }
