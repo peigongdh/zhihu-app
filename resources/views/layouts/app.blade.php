@@ -49,8 +49,23 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    &nbsp;
+                    <li>
+                        <a href="{{ url('timeline') }}">时间线</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('question') }}">提问</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('action') }}">主页</a>
+                    </li>
                 </ul>
+
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="搜索">
+                    </div>
+                    <button type="submit" class="btn btn-default">提交</button>
+                </form>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
