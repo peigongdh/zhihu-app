@@ -13,9 +13,23 @@ use App\Timeline;
 class TimelineRepository
 {
 
-    public function getTimelineItem($paginate)
+    public function getTimelineItem($userId, $paginate)
     {
-        $questions = Timeline::published()->latest('created_at')->with('user')->where('is_hidden', '=', 'F')->paginate($paginate);
+        $questions = Timeline::latest('created_at')
+            ->with([
+                'action' => function ($query) {
+                    return $query
+                        ->notUndo()
+                        ->with([
+                            'user',
+                            'actionable' => function ($query) {
+                                return $query->with('question');
+                            }
+                        ]);
+                }
+            ])
+            ->where('user_id', $userId)
+            ->paginate($paginate);
         return $questions;
     }
 

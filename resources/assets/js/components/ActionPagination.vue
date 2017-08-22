@@ -1,33 +1,38 @@
 <template>
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default" v-for="item in items">
+            <div class="panel panel-default" id="action" v-for="item in items">
                     <div class="panel-heading">
                         {{ getEventName(item.event) }}
                     </div>
                 <div class="panel-body">
                     <div class="media">
+                        <h4 class="media-heading">
+                            <a :href="getQuestionUrl(item)">
+                                {{ item.actionable.question.title }}
+                            </a>
+                        </h4>
+                        <p></p>
                         <div class="media-left">
                             <a href="">
-                                <img width="36" :src="item.user.avatar" :alt="item.user.name">
+                                <img width="48" :src="item.user.avatar" :alt="item.user.name">
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">
-                                <a :href="getQuestionUrl(item)">
-                                    {{ item.actionable.question.title }}
-                                </a>
-                            </h4>
+                            <h4 class="media-heading">{{ item.user.name }}</h4>
+                            <p>待扩展</p>
                         </div>
                     </div>
                 </div>
-                <div class="collapse" :id="getCollapseItemId(item)">
-                    <div class="panel-body">
-                        <div v-html="item.actionable.body"></div>
+                <div>
+                    <div class="collapse in" :id="getCollapseItemId(item)">
+                        <div class="panel-body">
+                            <div v-html="item.actionable.body"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <a class="pull-right" data-toggle="collapse" :href="getCollapseItemHref(item)" aria-expanded="true" :aria-controls="getCollapseItemId(item)">
+                    <a class="pull-right" data-toggle="collapse" data-parent="#action" aria-expanded="true" :href="getCollapseItemHref(item)" :aria-controls="getCollapseItemId(item)">
                         展开/折叠
                     </a>
                 </div>

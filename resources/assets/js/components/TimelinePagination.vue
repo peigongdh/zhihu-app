@@ -1,18 +1,40 @@
 <template>
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
-            <div class="media" v-for="item in items">
-                <div class="media-left">
-                    <a href="">
-                        <img width="48" :src="item.user.avatar" :alt="item.user.name">
-                    </a>
+            <div class="panel panel-default" id="timeline" v-for="item in items">
+                    <div class="panel-heading">
+                        {{ item.action.user.name }} {{ getEventName(item.action.event) }}
+                    </div>
+                <div class="panel-body">
+                    <div class="media">
+                        <h4 class="media-heading">
+                            <a :href="getQuestionUrl(item)">
+                                {{ item.action.actionable.question.title }}
+                            </a>
+                        </h4>
+                        <p></p>
+                        <div class="media-left">
+                            <a href="">
+                                <img width="48" :src="item.action.user.avatar" :alt="item.action.user.name">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ item.action.user.name }}</h4>
+                            <p>待扩展</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        <a :href="getQuestionUrl(item)">
-                            {{ item.title }}
-                        </a>
-                    </h4>
+                <div>
+                    <div class="collapse in" :id="getCollapseItemId(item)">
+                        <div class="panel-body">
+                            <div v-html="item.action.actionable.body"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <a class="pull-right" data-toggle="collapse" data-parent="#timeline" aria-expanded="true" :href="getCollapseItemHref(item)" :aria-controls="getCollapseItemId(item)">
+                        展开/折叠
+                    </a>
                 </div>
             </div>
             <nav v-if="pagination.last_page > 1">
@@ -87,7 +109,7 @@
         methods: {
             fetchItems(page) {
                 let data = {page: page};
-                axios.get('/api/item/question?topic=' + this.topic + '&page=' + data.page).then((response) => {
+                axios.get('/api/item/timeline' + '?page=' + data.page).then((response) => {
                     this.items = response.data.data;
                     this.pagination = response.data;
                 });
@@ -97,7 +119,22 @@
                 this.fetchItems(page);
             },
             getQuestionUrl(item) {
-                return '/question/' + item.id;
+                return '/question/' + item.action.actionable.question.id;
+            },
+            getCollapseItemId(item) {
+                return 'answerBody' + item.id;
+            },
+            getCollapseItemHref(item) {
+                return '#answerBody' + item.id;
+            },
+            getEventName(event) {
+                let event_map = {
+                    "USER_NEW_QUESTION": "创建了问题",
+                    "USER_NEW_ANSWER": "回答了问题",
+                    "USER_VOTE_ANSWER": "赞同了回答",
+                    "USER_FOLLOW_QUESTION": "关注了问题",
+                };
+                return event_map[event];
             }
         }
     }
