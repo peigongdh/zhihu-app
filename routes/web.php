@@ -32,7 +32,7 @@ Route::resource('question', 'QuestionController', ['names' =>
 Route::post('question/{question}/answer', 'AnswerController@store');
 Route::get('question/{question}/follow', 'QuestionFollowController@follow');
 
-Route::get('notification', 'NotificationController@index');
+Route::get('notification', 'NotificationController@index')->name('notification');
 Route::get('notification/{notification}', 'NotificationController@show');
 
 Route::get('avatar', 'UserController@avatar');
@@ -44,9 +44,9 @@ Route::post('password', 'PasswordController@update');
 Route::get('setting', 'SettingController@index');
 Route::post('setting', 'SettingController@store');
 
-Route::get('index', 'InboxController@index');
+Route::get('index', 'InboxController@index')->name('message');
 Route::get('index/{dialogId}', 'InboxController@show');
 Route::post('index/{dialogId}/store', 'InboxController@store');
 
-Route::get('action', 'ActionController@index');
-Route::get('timeline', 'TimelineController@index');
+Route::get('action', 'ActionController@index')->name('action');
+Route::get('timeline', 'TimelineController@index')->name('timeline');

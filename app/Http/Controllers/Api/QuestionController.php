@@ -20,10 +20,10 @@ class QuestionController extends Controller
     {
         $topicId = request('topic');
         if ($topicId) {
-            $questions = $this->questionRepository->getQuestionsItemByTopic($topicId, 10);
+            $questions = $this->questionRepository->getQuestionsItemByTopic($topicId, 25);
             return $questions;
         }
-        $questions = $this->questionRepository->getQuestionsItem(10);
+        $questions = $this->questionRepository->getQuestionsItem(25);
         return $questions;
     }
 }

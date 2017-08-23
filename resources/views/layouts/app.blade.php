@@ -16,9 +16,15 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <style>
+        body {
+            padding-top: 70px;
+        }
+    </style>
+
     <script>
         @if (Auth::check())
-            window.Zhihu = {
+                window.Zhihu = {
             name: "{{ Auth::user()->name }}",
             avatar: "{{ Auth::user()->avatar }}"
         };
@@ -27,7 +33,7 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
 
@@ -55,21 +61,22 @@
                     <li>
                         <a href="{{ url('question') }}">提问</a>
                     </li>
-                    <li>
-                        <a href="{{ url('action') }}">主页</a>
-                    </li>
                 </ul>
 
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="搜索">
+                <form class="navbar-form navbar-left" style="margin-top: 10px;">
+                    <div class="form-group input-group-sm">
+                        <input type="text" class="form-control" name="search" placeholder="搜索">
                     </div>
-                    <button type="submit" class="btn btn-default">提交</button>
                 </form>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
+                    @if (Auth::check())
+                        <li><a href="{{ route('message') }}"><span class="glyphicon glyphicon-bell"></span></a></li>
+                        <li><a href="{{ route('notification') }}"><span class="glyphicon glyphicon-comment"></span></a>
+                        </li>
+                    @endif
                     @if (Auth::guest())
                         <li><a href="{{ route('login') }}">登录</a></li>
                         <li><a href="{{ route('register') }}">注册</a></li>
@@ -82,6 +89,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li>
+                                    <a href="{{ url('action') }}">主页</a>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -17,7 +17,7 @@ class AnswerController extends Controller
 
     public function index($questionId)
     {
-        $answer = $this->answerRepository->getAnswersItem($questionId, 5);
+        $answer = $this->answerRepository->getAnswersItem($questionId, 25);
         return $answer;
     }
 }
