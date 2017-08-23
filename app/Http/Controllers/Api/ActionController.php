@@ -21,10 +21,9 @@ class ActionController extends Controller
         $this->actionRepository = $actionRepository;
     }
 
-    public function index()
+    public function index($userId)
     {
-        $user = user('api');
-        $actions = $this->actionRepository->getActionItem($user->id, 10);
+        $actions = $this->actionRepository->getActionItem($userId, 10);
         return $actions;
     }
 

@@ -14,7 +14,7 @@
 Auth::routes();
 
 Route::get('/', 'QuestionController@index');
-Route::get('/user/{id}', 'UserController@index');
+Route::get('/user/{id}', 'UserController@index')->name('user');
 
 Route::get('/topic/{id}', 'TopicController@topicQuestion');
 
@@ -41,12 +41,11 @@ Route::post('avatar', 'UserController@upload');
 Route::get('password', 'PasswordController@password');
 Route::post('password', 'PasswordController@update');
 
-Route::get('setting', 'SettingController@index');
+Route::get('setting', 'SettingController@index')->name('setting');
 Route::post('setting', 'SettingController@store');
 
-Route::get('index', 'InboxController@index')->name('message');
+Route::get('index', 'InboxController@index')->name('letter');
 Route::get('index/{dialogId}', 'InboxController@show');
 Route::post('index/{dialogId}/store', 'InboxController@store');
 
-Route::get('action', 'ActionController@index')->name('action');
 Route::get('timeline', 'TimelineController@index')->name('timeline');

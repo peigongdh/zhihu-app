@@ -56,7 +56,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="{{ url('timeline') }}">时间线</a>
+                        <a href="{{ route('timeline') }}">时间线</a>
                     </li>
                     <li>
                         <a href="{{ url('question') }}">提问</a>
@@ -73,7 +73,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::check())
-                        <li><a href="{{ route('message') }}"><span class="glyphicon glyphicon-bell"></span></a></li>
+                        <li><a href="{{ route('letter') }}"><span class="glyphicon glyphicon-bell"></span></a></li>
                         <li><a href="{{ route('notification') }}"><span class="glyphicon glyphicon-comment"></span></a>
                         </li>
                     @endif
@@ -89,14 +89,15 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ url('action') }}">主页</a>
+                                    <a href="{{ route('user', ['id' => Auth::id() ]) }}">主页</a>
+                                    <a href="{{ route('setting') }}">设置</a>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         退出
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    <form id="logout-form" action="{{ url('logout') }}" method="POST"
                                           style="display: none;">
                                         {{ csrf_field() }}
                                     </form>

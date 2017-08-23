@@ -3,7 +3,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="media" v-for="item in items">
                 <div class="media-left">
-                    <a href="">
+                    <a :href="getUserUrl(item)">
                         <img width="48" :src="item.user.avatar" :alt="item.user.name">
                     </a>
                 </div>
@@ -95,6 +95,9 @@
             changePage(page) {
                 this.pagination.current_page = page;
                 this.fetchItems(page);
+            },
+            getUserUrl(item) {
+                return '/user/' + item.user.id;
             },
             getQuestionUrl(item) {
                 return '/question/' + item.id;

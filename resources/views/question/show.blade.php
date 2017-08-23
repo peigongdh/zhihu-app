@@ -92,7 +92,7 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">
-                                    <a href="#">
+                                    <a href="{{ route('user', ['id' => $question->user->id ]) }}">
                                         {{ $question->user->name }}
                                     </a>
                                 </h4>

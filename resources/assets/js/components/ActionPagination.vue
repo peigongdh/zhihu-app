@@ -64,7 +64,7 @@
 
 <script>
     export default {
-        props: ['topic'],
+        props: ['user_id'],
         data() {
             return {
                 pagination: {
@@ -109,7 +109,7 @@
         methods: {
             fetchItems(page) {
                 let data = {page: page};
-                axios.get('/api/item/action' + '?page=' + data.page).then((response) => {
+                axios.get('/api/item/action/' + this.user_id + '?page=' + data.page).then((response) => {
                     this.items = response.data.data;
                     this.pagination = response.data;
                 });

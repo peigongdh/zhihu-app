@@ -64,7 +64,7 @@
 
 <script>
     export default {
-        props: ['topic'],
+        props: [],
         data() {
             return {
                 pagination: {
