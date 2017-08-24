@@ -25,7 +25,7 @@ Route::middleware('auth:api')->post('/user/follow', 'FollowerController@follow')
 Route::middleware('api')->post('/answer/vote/users', 'VoteController@users');
 Route::middleware('auth:api')->post('/answer/vote', 'VoteController@vote');
 
-Route::middleware('auth:api')->post('/message/store', 'MessageController@store');
+Route::middleware('auth:api')->post('/message/create', 'MessageController@create');
 
 Route::middleware('api')->get('answer/{id}/comments', 'CommentController@answer');
 Route::middleware('api')->get('question/{id}/comments', 'CommentController@question');

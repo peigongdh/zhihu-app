@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">对话列表</div>
                     <div class="panel-body">
-                        <form action="/index/{{ $dialogId }}/store" method="post">
+                        <form action="/message/{{ $dialogId }}/reply" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <textarea name="body" class="form-control"></textarea>
@@ -20,20 +20,18 @@
                             @foreach($messages as $message)
                                 <div class="media">
                                     <div class="media-left">
-                                        <a href="#">
+                                        <a href="{{ route('user', ['id' => $message->fromUser->id]) }}">
                                             <img width="48" src="{{ $message->fromUser->avatar }}" alt="">
                                         </a>
                                     </div>
                                     <div class="media-body">
                                         <h4 class="media-heading">
-                                            <a href="#">
+                                            <a href="{{ route('user', ['id' => $message->fromUser->id]) }}">
                                                 {{ $message->fromUser->name }}
                                             </a>
                                         </h4>
                                         <p>
-                                            <a href="/index/{{ $message->dialog_id }}">
-                                                {{ $message->body }}
-                                            </a>
+                                            {{ $message->body }}
                                             <span class="pull-right">
                                                     {{ $message->created_at->format('Y-m-d H:i:s') }}
                                             </span>

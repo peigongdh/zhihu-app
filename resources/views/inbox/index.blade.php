@@ -10,26 +10,30 @@
                         @foreach($messages as $dialogId => $messageGroup)
                             <div class="media">
                                 <div class="media-left">
-                                    <a href="#">
-                                        @if (Auth::id() == $messageGroup->first()->toUser->id )
+                                    @if (Auth::id() == $messageGroup->first()->fromUser->id )
+                                        <a href="{{ route('user', ['id' => $messageGroup->first()->fromUser->id]) }}">
                                             <img width="48" src="{{ $messageGroup->first()->fromUser->avatar }}" alt="">
-                                        @else
+                                        </a>
+                                    @else
+                                        <a href="{{ route('user', ['id' => $messageGroup->first()->toUser->id]) }}">
                                             <img width="48" src="{{ $messageGroup->first()->toUser->avatar }}" alt="">
-                                        @endif
-                                    </a>
+                                        </a>
+                                    @endif
                                 </div>
                                 <div class="media-body {{ $messageGroup->first()->shouldAddUnreadClass() ? 'unread' : '' }}">
                                     <h4 class="media-heading">
-                                        <a href="#">
-                                            @if (Auth::id() == $messageGroup->first()->toUser->id)
+                                        @if (Auth::id() == $messageGroup->first()->toUser->id)
+                                            <a href="{{ route('user', ['id' => $messageGroup->first()->fromUser->id]) }}">
                                                 {{ $messageGroup->first()->fromUser->name }}
-                                            @else
+                                            </a>
+                                        @else
+                                            <a href="{{ route('user', ['id' => $messageGroup->first()->toUser->id]) }}">
                                                 {{ $messageGroup->first()->toUser->name }}
-                                            @endif
-                                        </a>
+                                            </a>
+                                        @endif
                                     </h4>
                                     <p>
-                                        <a href="/index/{{ $dialogId }}">
+                                        <a href="/message/{{ $dialogId }}">
                                             {{ $messageGroup->first()->body }}
                                         </a>
                                     </p>

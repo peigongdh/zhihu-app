@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\MessageNotification;
 use App\Repositories\MessageRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -16,10 +16,24 @@ class MessageController extends Controller
      */
     public function __construct(MessageRepository $messageRepository)
     {
+        $this->middleware('auth');
         $this->messageRepository = $messageRepository;
     }
 
-    public function store()
+    public function index()
+    {
+        $messages = $this->messageRepository->getAllMessages();
+        return view('inbox.index', ['messages' => $messages->groupBy('dialog_id')]);
+    }
+
+    public function show($dialogId)
+    {
+        $messages = $this->messageRepository->getDialogMessageByDialogId($dialogId);
+        $messages->markAsRead();
+        return view('inbox.show', compact('messages', 'dialogId'));
+    }
+
+    public function create()
     {
         $user = user('api');
         $toUserId = request('user');
@@ -32,5 +46,19 @@ class MessageController extends Controller
         ]);
 
         return response()->json(['status' => !!$message]);
+    }
+
+    public function reply($dialogId)
+    {
+        $message = $this->messageRepository->getSingleMessageByDialogId($dialogId);
+        $toUserId = $message->from_user_id == user()->id ? $message->to_user_id : $message->from_user_id;
+        $newMessage = $this->messageRepository->create([
+            'from_user_id' => user()->id,
+            'to_user_id' => $toUserId,
+            'body' => request('body'),
+            'dialog_id' => $dialogId
+        ]);
+        $newMessage->toUser->notify(new MessageNotification($newMessage));
+        return back();
     }
 }

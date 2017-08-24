@@ -56,7 +56,7 @@
         },
         methods: {
             store() {
-                axios.post('/api/message/store', {'user': this.user, 'body': this.body}).then((response) => {
+                axios.post('/api/message/create', {'user': this.user, 'body': this.body}).then((response) => {
                     this.status = response.data.status;
                     this.body = '';
                     setTimeout(function () {

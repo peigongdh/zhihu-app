@@ -73,7 +73,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::check())
-                        <li><a href="{{ route('letter') }}"><span class="glyphicon glyphicon-bell"></span></a></li>
+                        <li><a href="{{ route('message') }}"><span class="glyphicon glyphicon-bell"></span></a></li>
                         <li><a href="{{ route('notification') }}"><span class="glyphicon glyphicon-comment"></span></a>
                         </li>
                     @endif

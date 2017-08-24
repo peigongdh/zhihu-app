@@ -44,8 +44,8 @@ Route::post('avatar', 'UserController@upload');
 Route::get('setting', 'SettingController@index')->name('setting_info');
 Route::post('setting', 'SettingController@store');
 
-Route::get('index', 'InboxController@index')->name('letter');
-Route::get('index/{dialogId}', 'InboxController@show');
-Route::post('index/{dialogId}/store', 'InboxController@store');
+Route::get('message', 'MessageController@index')->name('message');
+Route::get('message/{dialogId}', 'MessageController@show');
+Route::post('message/{dialogId}/reply', 'MessageController@reply');
 
 Route::get('timeline', 'TimelineController@index')->name('timeline');
