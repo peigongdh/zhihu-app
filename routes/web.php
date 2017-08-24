@@ -35,13 +35,13 @@ Route::get('question/{question}/follow', 'QuestionFollowController@follow');
 Route::get('notification', 'NotificationController@index')->name('notification');
 Route::get('notification/{notification}', 'NotificationController@show');
 
-Route::get('avatar', 'UserController@avatar');
-Route::post('avatar', 'UserController@upload');
-
-Route::get('password', 'PasswordController@password');
+Route::get('password', 'PasswordController@password')->name('setting_password');;;
 Route::post('password', 'PasswordController@update');
 
-Route::get('setting', 'SettingController@index')->name('setting');
+Route::get('avatar', 'UserController@avatar')->name('setting_avatar');;
+Route::post('avatar', 'UserController@upload');
+
+Route::get('setting', 'SettingController@index')->name('setting_info');
 Route::post('setting', 'SettingController@store');
 
 Route::get('index', 'InboxController@index')->name('letter');

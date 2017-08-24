@@ -12,7 +12,7 @@
                    :headers="headers"
                    img-format="png"></my-upload>
         <img :src="imgDataUrl" style="width: 80px;">
-        <a class="btn" @click="toggleShow">修改头像</a>
+        <a class="btn" @click="toggleShow">更换头像</a>
     </div>
 </template>
 

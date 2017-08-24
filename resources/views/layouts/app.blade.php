@@ -90,7 +90,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="{{ route('user', ['id' => Auth::id() ]) }}">主页</a>
-                                    <a href="{{ route('setting') }}">设置</a>
+                                    <a href="{{ route('setting_info') }}">设置</a>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
