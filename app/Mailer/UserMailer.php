@@ -17,7 +17,7 @@ class UserMailer extends Mailer
     public function followNotify($email)
     {
         $data = [
-            'url' => url(config('app.url')),
+            'url' => route('user', ['id' => user('api')->id]),
             'name' => user('api')->name
         ];
         $this->sendTo('zhihu_app_new_user_follow', $email, $data);

@@ -44,7 +44,8 @@ class MessageController extends Controller
             'body' => $body,
             'dialog_id' => time() . $user->id
         ]);
-
+        // 后续考虑取消该通知，由私信处理
+        $message->toUser->notify(new MessageNotification($message));
         return response()->json(['status' => !!$message]);
     }
 
@@ -58,6 +59,7 @@ class MessageController extends Controller
             'body' => request('body'),
             'dialog_id' => $dialogId
         ]);
+        // 后续考虑取消该通知，由私信处理
         $newMessage->toUser->notify(new MessageNotification($newMessage));
         return back();
     }

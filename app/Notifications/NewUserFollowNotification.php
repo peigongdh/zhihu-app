@@ -38,6 +38,7 @@ class NewUserFollowNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
+            'id' => user('api')->id,
             'name' => user('api')->name
         ];
     }
