@@ -22,7 +22,7 @@
                      :count="getAnswerCommentCount(item)">
             </comment>
         </div>
-
+        <br>
         <nav v-if="pagination.last_page > 1">
             <ul class="pagination">
                 <li v-if="pagination.current_page > 1">

@@ -32,11 +32,11 @@
                                         </h4>
                                         <p>
                                             {{ $message->body }}
-                                            <span class="pull-right">
-                                                    {{ $message->created_at->format('Y-m-d H:i:s') }}
-                                            </span>
                                         </p>
                                     </div>
+                                    <small class="pull-right">
+                                        {{ $message->created_at->format('Y-m-d H:i:s') }}
+                                    </small>
                                 </div>
                             @endforeach
                         </div>

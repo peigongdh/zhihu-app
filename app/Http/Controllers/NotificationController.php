@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Notifications\DatabaseNotification;
-use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
@@ -16,8 +15,11 @@ class NotificationController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-        return view('notification.index', compact('user'));
+        $notifications = user()->notifications;
+        $notificationGroups = $notifications->groupBy(function ($item, $key) {
+            return substr($item['created_at'], 0, 10);
+        });
+        return view('notification.index', compact('notificationGroups'));
     }
 
     public function show(DatabaseNotification $notification)

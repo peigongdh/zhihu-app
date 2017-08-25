@@ -8,10 +8,15 @@
                     <div class="panel-heading">消息通知</div>
 
                     <div class="panel-body">
-                        @foreach($user->notifications as $notification)
-                            @include('notification.' . snake_case(class_basename($notification->type)))
+                        @foreach($notificationGroups as $date => $notifications)
+                            <strong>{{ $date }}</strong>
+                            @foreach($notifications as $notification)
+                                @include('notification.' . snake_case(class_basename($notification->type)))
+                            @endforeach
+                            <br>
                         @endforeach
                     </div>
+
                 </div>
             </div>
         </div>

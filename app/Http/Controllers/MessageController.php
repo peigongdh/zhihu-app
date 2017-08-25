@@ -23,14 +23,14 @@ class MessageController extends Controller
     public function index()
     {
         $messages = $this->messageRepository->getAllMessages();
-        return view('inbox.index', ['messages' => $messages->groupBy('dialog_id')]);
+        return view('message.index', ['messages' => $messages->groupBy('dialog_id')]);
     }
 
     public function show($dialogId)
     {
         $messages = $this->messageRepository->getDialogMessageByDialogId($dialogId);
         $messages->markAsRead();
-        return view('inbox.show', compact('messages', 'dialogId'));
+        return view('message.show', compact('messages', 'dialogId'));
     }
 
     public function create()
