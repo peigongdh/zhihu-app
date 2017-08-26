@@ -24,7 +24,7 @@
 
     <script>
         @if (Auth::check())
-                window.Zhihu = {
+            window.Zhihu = {
             name: "{{ Auth::user()->name }}",
             avatar: "{{ Auth::user()->avatar }}"
         };
@@ -116,6 +116,15 @@
 
     @yield('content')
 </div>
+
+<footer class="main">
+    <div class="container">
+        <p>
+            Power by
+            <a href="https://github.com/peigongDH/zhihu-app">zhihu-app</a>
+        </p>
+    </div>
+</footer>
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

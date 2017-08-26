@@ -73,3 +73,9 @@ a.topic:hover {
 .notification.unread {
     background: #fcf8e3;
 }
+
+footer.main {
+    background: #fff;
+    padding: 35px 20px;
+    text-align: center;
+}
