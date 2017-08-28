@@ -35,6 +35,22 @@ class MessageRepository
             ->get();
     }
 
+    public function getMessageItem($userId, $paginate)
+    {
+        return Message::where('to_user_id', $userId)
+            ->orWhere('from_user_id', $userId)
+            ->with([
+                'fromUser' => function ($query) {
+                    return $query->select(['id', 'name', 'avatar']);
+                },
+                'toUser' => function ($query) {
+                    return $query->select(['id', 'name', 'avatar']);
+                },
+            ])
+            ->latest()
+            ->paginate($paginate);
+    }
+
     public function getDialogMessageByDialogId($dialogId)
     {
         return Message::where('dialog_id', $dialogId)

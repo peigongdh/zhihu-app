@@ -1,40 +1,45 @@
 <template>
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default" id="action" v-for="item in items">
+            <div class="panel panel-default" id="message">
                 <div class="panel-heading">
-                    {{ getEventName(item.event) }}
+                    私信列表
                 </div>
                 <div class="panel-body">
-                    <div class="media">
-                        <h4 class="media-heading">
-                            <a :href="getQuestionUrl(item)">
-                                {{ item.actionable.question.title }}
+                    <div class="media" v-for="(item, index) in items">
+                        <div class="media-left" v-if="item[0].from_user.id == this.user_id">
+                            <a :href="getUserUrl(item[0].from_user.id)">
+                                <img width="48" :src="item[0].from_user.avatar" :alt="item[0].from_user.name">
                             </a>
-                        </h4>
-                        <p></p>
-                        <div class="media-left">
-                            <a href="">
-                                <img width="48" :src="item.user.avatar" :alt="item.user.name">
+                        </div>
+                        <div class="media-left" v-else>
+                            <a :href="getUserUrl(item[0].to_user.id)">
+                                <img width="48" :src="item[0].to_user.avatar" :alt="item[0].to_user.name">
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">{{ item.user.name }}</h4>
-                            <p>待扩展</p>
+                            <h4 class="media-heading" v-if="item[0].to_user.id == this.user_id">
+                                <a :href="getUserUrl(item[0].from_user.id)">
+                                    {{ item[0].from_user.name }}
+                                </a>
+                            </h4>
+                            <h4 class="media-heading" v-else>
+                                <a :href="getUserUrl(item[0].to_user.id)">
+                                    {{ item[0].to_user.name }}
+                                </a>
+                            </h4>
+                            <p>
+                                {{ item[0].body }}
+                            </p>
+                            <a :href="getDialogUrl(index)">
+                                查看对话
+                            </a>
                         </div>
+                        <small class="pull-right">
+                            {{ item[0].created_at }}
+                        </small>
+                        <br>
                     </div>
-                </div>
-                <div>
-                    <div class="collapse in" :id="getCollapseItemId(item)">
-                        <div class="panel-body">
-                            <div v-html="item.actionable.body"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <a class="pull-right" data-toggle="collapse" data-parent="#action" aria-expanded="true" :href="getCollapseItemHref(item)" :aria-controls="getCollapseItemId(item)">
-                        展开/折叠
-                    </a>
                 </div>
             </div>
             <br>
@@ -110,8 +115,8 @@
         methods: {
             fetchItems(page) {
                 let data = {page: page};
-                axios.get('/api/item/action/' + this.user_id + '?page=' + data.page).then((response) => {
-                    this.items = response.data.data;
+                axios.get('/api/item/message' + '?page=' + data.page).then((response) => {
+                    this.items = response.data;
                     this.pagination = response.data;
                 });
             },
@@ -119,24 +124,12 @@
                 this.pagination.current_page = page;
                 this.fetchItems(page);
             },
-            getQuestionUrl(item) {
-                return '/question/' + item.actionable.question.id;
+            getDialogUrl(index) {
+                return '/message/' + index;
             },
-            getCollapseItemId(item) {
-                return 'answerBody' + item.id;
+            getUserUrl(index) {
+                return '/user/' + index;
             },
-            getCollapseItemHref(item) {
-                return '#answerBody' + item.id;
-            },
-            getEventName(event) {
-                let event_map = {
-                    "USER_NEW_QUESTION": "创建了问题",
-                    "USER_NEW_ANSWER": "回答了问题",
-                    "USER_VOTE_ANSWER": "赞同了回答",
-                    "USER_FOLLOW_QUESTION": "关注了问题",
-                };
-                return event_map[event];
-            }
         }
     }
 </script>

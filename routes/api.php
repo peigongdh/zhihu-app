@@ -27,13 +27,14 @@ Route::middleware('auth:api')->post('/answer/vote', 'VoteController@vote');
 
 Route::middleware('auth:api')->post('/message/create', 'MessageController@create');
 
-Route::middleware('api')->get('answer/{id}/comments', 'CommentController@answer');
-Route::middleware('api')->get('question/{id}/comments', 'CommentController@question');
+Route::middleware('api')->get('/answer/{id}/comments', 'CommentController@answer');
+Route::middleware('api')->get('/question/{id}/comments', 'CommentController@question');
 
-Route::middleware('auth:api')->post('comment', 'CommentController@store');
+Route::middleware('auth:api')->post('/comment', 'CommentController@store');
 
-Route::middleware('api')->get('item/question', 'Api\QuestionController@index');
-Route::middleware('api')->get('item/answer/{id}', 'Api\AnswerController@index');
+Route::middleware('api')->get('/item/question', 'Api\QuestionController@index');
+Route::middleware('api')->get('/item/answer/{id}', 'Api\AnswerController@index');
 
-Route::middleware('auth:api')->get('item/action/{id}', 'Api\ActionController@index');
-Route::middleware('auth:api')->get('item/timeline', 'Api\TimelineController@index');
+Route::middleware('auth:api')->get('/item/action/{id}', 'Api\ActionController@index');
+Route::middleware('auth:api')->get('/item/timeline', 'Api\TimelineController@index');
+Route::middleware('auth:api')->get('/item/message', 'Api\MessageController@index');

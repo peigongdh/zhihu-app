@@ -26,6 +26,7 @@ Vue.component('question-pagination', require('./components/QuestionPagination.vu
 Vue.component('answer-pagination', require('./components/AnswerPagination.vue'));
 Vue.component('action-pagination', require('./components/ActionPagination.vue'));
 Vue.component('timeline-pagination', require('./components/TimelinePagination.vue'));
+Vue.component('message-pagination', require('./components/MessagePagination.vue'));
 
 const app = new Vue({
     el: '#app'

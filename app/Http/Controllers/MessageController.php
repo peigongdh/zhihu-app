@@ -22,8 +22,7 @@ class MessageController extends Controller
 
     public function index()
     {
-        $messages = $this->messageRepository->getAllMessages();
-        return view('message.index', ['messages' => $messages->groupBy('dialog_id')]);
+        return view('message.index');
     }
 
     public function show($dialogId)
