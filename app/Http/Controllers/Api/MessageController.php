@@ -20,8 +20,8 @@ class MessageController extends Controller
     {
         $user = user('api');
         $messages = $this->messageRepository->getMessageItem($user->id, 10);
-        $messageGroups = $messages->groupBy('dialog_id');
-        return $messageGroups;
+        $messages->setCollection($messages->getCollection()->groupBy('dialog_id'));
+        return $messages;
     }
 
 }

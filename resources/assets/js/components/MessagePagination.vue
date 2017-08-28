@@ -7,7 +7,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="media" v-for="(item, index) in items">
-                        <div class="media-left" v-if="item[0].from_user.id == this.user_id">
+                        <div class="media-left" v-if="item[0].to_user.id === this.user_id">
                             <a :href="getUserUrl(item[0].from_user.id)">
                                 <img width="48" :src="item[0].from_user.avatar" :alt="item[0].from_user.name">
                             </a>
@@ -18,7 +18,7 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading" v-if="item[0].to_user.id == this.user_id">
+                            <h4 class="media-heading" v-if="item[0].to_user.id === this.user_id">
                                 <a :href="getUserUrl(item[0].from_user.id)">
                                     {{ item[0].from_user.name }}
                                 </a>
@@ -116,7 +116,7 @@
             fetchItems(page) {
                 let data = {page: page};
                 axios.get('/api/item/message' + '?page=' + data.page).then((response) => {
-                    this.items = response.data;
+                    this.items = response.data.data;
                     this.pagination = response.data;
                 });
             },

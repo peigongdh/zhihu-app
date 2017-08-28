@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Notifications\MessageNotification;
 use App\Repositories\MessageRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller

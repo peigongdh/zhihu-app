@@ -15,7 +15,7 @@
         mounted() {
             if (this.is_login) {
                 axios.post('/api/user/followers', {'user': this.user}).then((response) => {
-                    this.followed = response.data.followed
+                    this.followed = response.data.followed;
                     this.hidden = true;
                 })
             } else {
@@ -38,7 +38,7 @@
             follow() {
                 if (this.is_login) {
                     axios.post('/api/user/follow', {'user': this.user}).then((response) => {
-                        this.followed = response.data.followed
+                        this.followed = response.data.followed;
                     })
                 }
             }
