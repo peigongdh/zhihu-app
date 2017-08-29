@@ -60,7 +60,7 @@
                     this.status = response.data.status;
                     this.body = '';
                     setTimeout(function () {
-                        $('#modal-send-message').modal('hide')
+                        $('#modal-send-message').modal('hide');
                     }, 2000);
                 })
             },
