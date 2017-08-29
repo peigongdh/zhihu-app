@@ -19,10 +19,10 @@ class MessageRepository
         return Message::create($attributes);
     }
 
-    public function getAllMessages()
+    public function getAllMessages($userId)
     {
-        return Message::where('to_user_id', user()->id)
-            ->orWhere('from_user_id', user()->id)
+        return Message::where('to_user_id', $userId)
+            ->orWhere('from_user_id', $userId)
             ->with([
                 'fromUser' => function ($query) {
                     return $query->select(['id', 'name', 'avatar']);
