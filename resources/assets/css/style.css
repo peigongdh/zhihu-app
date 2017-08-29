@@ -57,7 +57,7 @@ a.topic:hover {
     margin-top: 80px;
 }
 
-.media.unread {
+.media-body.unread {
     background: #fcf8e3;
 }
 

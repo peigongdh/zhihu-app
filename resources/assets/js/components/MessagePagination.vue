@@ -17,7 +17,7 @@
                                 <img width="48" :src="item[0].to_user.avatar" :alt="item[0].to_user.name">
                             </a>
                         </div>
-                        <div class="media-body">
+                        <div class="media-body" :class="isUnread(item)">
                             <h4 class="media-heading" v-if="isToUserIdEqualSelfUserId(item)">
                                 <a :href="getUserUrl(item[0].from_user.id)">
                                     {{ item[0].from_user.name }}
@@ -136,6 +136,14 @@
             isToUserIdEqualSelfUserId(item) {
                 return item[0].to_user.id === this.user_id;
             },
+            isUnread(item) {
+                if (item[0].from_user.id === this.user_id) {
+                    return '';
+                } else if (item[0].has_read === 'F') {
+                    return 'unread';
+                }
+                return '';
+            }
         }
     }
 </script>
