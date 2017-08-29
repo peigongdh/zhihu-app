@@ -77,4 +77,9 @@ return [
         ],
     ],
 
+    /*
+     * Schedule log path
+     */
+
+    'schedule' => storage_path('logs/schedule.log'),
 ];

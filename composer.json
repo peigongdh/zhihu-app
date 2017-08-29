@@ -13,7 +13,8 @@
         "naux/sendcloud": "^1.1",
         "overtrue/laravel-filesystem-qiniu": "^0.0.3",
         "overtrue/laravel-ueditor": "~1.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+	"elasticsearch/elasticsearch": "~5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
