@@ -38,6 +38,7 @@ class Test extends Command
     public function handle()
     {
         //
+        logger('Debug schedule');
         echo "hello, schedule.\n";
     }
 }

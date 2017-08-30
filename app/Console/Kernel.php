@@ -25,11 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+//        $schedule->command('inspire')
+//            ->hourly();
         $schedule->command('test:echo')
             ->everyMinute()
-            ->sendOutputTo(config('filesystem.schedule'));
+            ->appendOutputTo(config('schedule.test'));
     }
 
     /**

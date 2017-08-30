@@ -76,10 +76,4 @@ return [
             'root' => storage_path('app'),
         ],
     ],
-
-    /*
-     * Schedule log path
-     */
-
-    'schedule' => storage_path('logs/schedule.log'),
 ];
