@@ -2,23 +2,24 @@
 
 namespace App\Console\Commands;
 
+use Elasticsearch\ClientBuilder;
 use Illuminate\Console\Command;
 
-class Test extends Command
+class CreateElasticsearchIndex extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'test:echo';
+    protected $signature = 'es:create';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This is a test';
+    protected $description = 'Create index for elaticsearch';
 
     /**
      * Create a new command instance.
@@ -37,8 +38,15 @@ class Test extends Command
      */
     public function handle()
     {
-        //
-        logger('Debug schedule');
-        echo "hello, schedule.\n";
+        $client = ClientBuilder::create()->setHosts(config('elasticsearch.hosts.local'))->build();
+        $params = [
+            'index' => 'my_index',
+            'type' => 'my_type',
+            'id' => 'my_id',
+            'body' => ['testField' => 'abc']
+        ];
+
+        $response = $client->index($params);
+        print_r($response);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Console;
 
-use App\Console\Commands\Test;
+use App\Console\Commands\CreateElasticsearchIndex;
+use App\Console\Commands\TestElaticsearchQuery;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Test::class
+        CreateElasticsearchIndex::class,
+        TestElaticsearchQuery::class
     ];
 
     /**
@@ -27,9 +29,9 @@ class Kernel extends ConsoleKernel
     {
 //        $schedule->command('inspire')
 //            ->hourly();
-        $schedule->command('test:echo')
-            ->everyMinute()
-            ->appendOutputTo(config('schedule.test'));
+//        $schedule->command('es:create')
+//            ->daily()
+//            ->appendOutputTo(config('schedule.es_create'));
     }
 
     /**
