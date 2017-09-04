@@ -15,11 +15,7 @@ class NotificationController extends Controller
 
     public function index()
     {
-        $notifications = user()->notifications;
-        $notificationGroups = $notifications->groupBy(function ($item, $key) {
-            return substr($item['created_at'], 0, 10);
-        });
-        return view('notification.index', compact('notificationGroups'));
+        return view('notification.index');
     }
 
     public function show(DatabaseNotification $notification)
