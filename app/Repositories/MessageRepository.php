@@ -10,6 +10,7 @@ namespace App\Repositories;
 
 
 use App\Message;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MessageRepository
 {
@@ -60,7 +61,7 @@ class MessageRepository
         $dialogIds = Message::select('dialog_id')
             ->distinct()
             ->paginate($paginate);
-        return Message::where('to_user_id', $userId)
+        $messages = Message::where('to_user_id', $userId)
             ->orWhere('from_user_id', $userId)
             ->whereIn('dialog_id', $dialogIds->getCollection()->toArray())
             ->with([
@@ -72,6 +73,9 @@ class MessageRepository
                 },
             ])
             ->latest()
-            ->paginate($paginate);
+            ->get();
+        $messageGroups = $messages->groupBy('dialog_id');
+        $messageItems = new LengthAwarePaginator($messageGroups, $messageGroups->count(), $paginate);
+        return $messageItems;
     }
 }
