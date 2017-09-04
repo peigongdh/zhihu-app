@@ -18,7 +18,7 @@ class Mailer
     {
         $content = new SendCloudTemplate($template, $data);
         Mail::raw($content, function ($message) use($email) {
-            $message->from('peigong.dh@qq.com', 'peigong');
+            $message->from('admin@peigongdh.com', 'peigong');
             $message->to($email);
         });
     }

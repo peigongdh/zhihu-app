@@ -88,7 +88,7 @@ class RegisterController extends Controller
         $template = new SendCloudTemplate('zhihu_app_register', $data);
 
         Mail::raw($template, function ($message) use ($user) {
-            $message->from('peigong.dh@qq.com', 'peigong');
+            $message->from('admin@peigongdh.com', 'peigong');
             $message->to($user->email);
         });
     }

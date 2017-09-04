@@ -40,8 +40,8 @@ class CreateElasticsearchIndex extends Command
     {
         $client = ClientBuilder::create()->setHosts(config('elasticsearch.hosts.local'))->build();
         $params = [
-            'index' => 'my_index',
-            'type' => 'my_type',
+            'index' => 'zhihu',
+            'type' => 'question',
             'id' => 'my_id',
             'body' => ['testField' => 'abc']
         ];
