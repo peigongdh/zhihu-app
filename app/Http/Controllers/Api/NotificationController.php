@@ -25,7 +25,7 @@ class NotificationController extends Controller
     public function index()
     {
         $user = user('api');
-        $notifications = $this->userRepository->getNotificationItem($user->id, 10);
+        $notifications = $this->userRepository->getNotificationItem($user->id, 10, request('page'));
         return $notifications;
     }
 

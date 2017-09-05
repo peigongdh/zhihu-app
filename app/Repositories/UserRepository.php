@@ -19,13 +19,14 @@ class UserRepository
         return User::find($id);
     }
 
-    public function getNotificationItem($userId, $paginate)
+    public function getNotificationItem($userId, $paginate, $currentPage)
     {
         $notifications = User::find($userId)->notifications;
         $notificationGroups = $notifications->groupBy(function ($item, $key) {
             return substr($item['created_at'], 0, 10);
         });
-        $notificationItems = new LengthAwarePaginator($notificationGroups, $notificationGroups->count(), $paginate);
+        $cutNotificationGroups = array_slice($notificationGroups->toArray(), ($currentPage - 1) * $paginate, $paginate);
+        $notificationItems = new LengthAwarePaginator($cutNotificationGroups, $notificationGroups->count(), $paginate, $currentPage);
         return $notificationItems;
     }
 }

@@ -19,7 +19,7 @@ class MessageController extends Controller
     public function index()
     {
         $user = user('api');
-        $messages = $this->messageRepository->getMessageItem($user->id, 10);
+        $messages = $this->messageRepository->getMessageItem($user->id, 10, request('page'));
         return $messages;
     }
 
