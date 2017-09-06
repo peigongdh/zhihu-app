@@ -80,10 +80,13 @@ class MessageRepository
             ])
             ->latest()
             ->get();
-        $messageGroups = $messages->groupBy('dialog_id')->sortByDesc(function($groups, $dialogId) {
-            return $groups[0]['created_at'];
+        $messageGroups = $messages->groupBy('dialog_id');
+        $messageGroupsArray = $messageGroups->all();
+        uasort($messageGroupsArray, function ($a, $b) {
+            return strcmp($a[0]['created_at'], $b[0]['created_at']);
         });
-        $messageItems = new LengthAwarePaginator($messageGroups, count($dialogIds), $paginate, $currentPage);
+        $messageGroupsArrayReverse = array_reverse($messageGroupsArray);
+        $messageItems = new LengthAwarePaginator($messageGroupsArrayReverse, count($dialogIds), $paginate, $currentPage);
         return $messageItems;
     }
 }
