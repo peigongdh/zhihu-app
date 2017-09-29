@@ -29,4 +29,9 @@ class UserRepository
         $notificationItems = new LengthAwarePaginator($cutNotificationGroups, $notificationGroups->count(), $paginate, $currentPage);
         return $notificationItems;
     }
+
+    public function getUserInfoForThirdParty($id)
+    {
+        return User::select(['id', 'name'])->where('id', $id)->first();
+    }
 }

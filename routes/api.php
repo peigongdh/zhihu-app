@@ -39,3 +39,5 @@ Route::middleware('auth:api')->get('/item/action/{id}', 'Api\ActionController@in
 Route::middleware('auth:api')->get('/item/timeline', 'Api\TimelineController@index');
 Route::middleware('auth:api')->get('/item/message', 'Api\MessageController@index');
 Route::middleware('auth:api')->get('/item/notification', 'Api\NotificationController@index');
+
+Route::middleware('api')->post('/auth', 'Api\AuthController@auth');
