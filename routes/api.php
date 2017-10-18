@@ -40,4 +40,8 @@ Route::middleware('auth:api')->get('/item/timeline', 'Api\TimelineController@ind
 Route::middleware('auth:api')->get('/item/message', 'Api\MessageController@index');
 Route::middleware('auth:api')->get('/item/notification', 'Api\NotificationController@index');
 
+// use for skynet-todpole
 Route::middleware('api')->post('/auth', 'Api\AuthController@auth');
+
+// use for zhihu-app-timeline to bind uid
+Route::middleware('auth:api')->post('/bind', 'Api\BindController@bind');

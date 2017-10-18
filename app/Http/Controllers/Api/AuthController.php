@@ -57,7 +57,7 @@ class AuthController extends Controller
                 $userInfo = $this->userRepository->getUserInfoForThirdParty(Auth::id());
             }
         }
-
+        
         return response(['status' => $status, 'data' => $userInfo]);
     }
 

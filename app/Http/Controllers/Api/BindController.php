@@ -10,6 +10,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use GatewayClient\Gateway;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BindController extends Controller
 {
@@ -19,11 +21,18 @@ class BindController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('api');
+        $this->middleware('auth:api');
     }
 
-    public function bind()
+    public function bind(Request $request)
     {
-        Gateway::$registerAddress = '127.0.0.1:1236';
+        $clientId = $request->get('client_id');
+        if (!$clientId) {
+            return response(['status' => 'failed']);
+        }
+        Gateway::$registerAddress = '127.0.0.1:11110';
+        Gateway::bindUid($clientId, Auth::id());
+        // Gateway::sendToUid(Auth::id(), json_encode(["hello"]));
+        return response(['status' => 'success']);
     }
 }
