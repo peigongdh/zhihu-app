@@ -1,10 +1,10 @@
 <template>
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default" id="timeline" v-for="item in items">
-                    <div class="panel-heading">
-                        {{ item.action.user.name }} {{ getEventName(item.action.event) }}
-                    </div>
+            <div class="panel panel-default" id="timeline" v-for="item in items" v-if="item.action != null">
+                <div class="panel-heading">
+                    {{ item.action.user.name }} {{ getEventName(item.action.event) }}
+                </div>
                 <div class="panel-body">
                     <div class="media">
                         <h4 class="media-heading">
@@ -32,7 +32,8 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <a class="pull-right" data-toggle="collapse" data-parent="#timeline" aria-expanded="true" :href="getCollapseItemHref(item)" :aria-controls="getCollapseItemId(item)">
+                    <a class="pull-right" data-toggle="collapse" data-parent="#timeline" aria-expanded="true"
+                       :href="getCollapseItemHref(item)" :aria-controls="getCollapseItemId(item)">
                         展开/折叠
                     </a>
                 </div>
