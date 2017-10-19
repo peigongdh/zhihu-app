@@ -1,9 +1,11 @@
+var socketConfig = 'ws://devzhihu.zhangpei.online:11130';
+
 function init(csrfToken, apiToken) {
     var ws;
 
     if (!ws) {
         try {
-            ws = new WebSocket("ws://devzhihu.zhangpei.online:11130");
+            ws = new WebSocket(socketConfig);
 
             ws.onmessage = function (e) {
                 var data = eval("(" + e.data + ")");
@@ -27,8 +29,12 @@ function init(csrfToken, apiToken) {
                     case 'ping':
                         console.log("ping");
                         break;
+                    case 'action':
+                        // todo
+                        console.log("action: " + data.data);
+                        break;
                     default :
-                        console.log(e.data);
+                        console.log("unknown message, drop");
                 }
             };
         } catch (e) {
@@ -37,13 +43,15 @@ function init(csrfToken, apiToken) {
     } else {
         console.log("ws keep connection")
     }
-}
+};
 
 let csrfToken = document.head.querySelector('meta[name="csrf-token"]');
 let apiToken = document.head.querySelector('meta[name="api-token"]');
 
 if (csrfToken.content && apiToken.content) {
-    init(csrfToken.content, apiToken.content);
+    if (document.location.pathname == "/timeline") {
+        init(csrfToken.content, apiToken.content);
+    }
 } else {
-    console.error('csrf token or api token not found');
+    console.log('csrf token or api token not found');
 }
