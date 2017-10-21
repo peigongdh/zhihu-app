@@ -121,7 +121,7 @@
     <div class="container">
         <p>
             Power by
-            <a href="https://github.com/peigongdh/zhihu-app">zhihu-app</a>
+            <a href="https://github.com/peigongdh/zhihu-app">{{ config('app.name') }}</a>
         </p>
     </div>
 </footer>
