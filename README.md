@@ -1,4 +1,4 @@
-# Uhihz-README
+# Uhihz-A zhihu like forum
 
 ## install
 
