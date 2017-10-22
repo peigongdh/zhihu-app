@@ -59,7 +59,7 @@
                         <a href="{{ route('timeline') }}">时间线</a>
                     </li>
                     <li>
-                        <a href="{{ url('question') }}">提问</a>
+                        <a href="{{ route('question.create') }}">提问</a>
                     </li>
                 </ul>
 
