@@ -120,4 +120,15 @@ return [
         ],
     ],
 
+    /*
+     * mail address to send
+     */
+
+    'mail_sender' => env('MAIL_SENDER'),
+
+    /*
+     * mail sender name
+     */
+
+    'mail_sender_name' => env('MAIL_SENDER_NAME'),
 ];
