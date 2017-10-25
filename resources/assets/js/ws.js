@@ -1,4 +1,4 @@
-var socketConfig = 'ws://devzhihu.zhangpei.online:11130';
+var socketConfig = 'wss://uhihz.peigongdh.com:11130';
 
 function init(csrfToken, apiToken) {
     var ws;

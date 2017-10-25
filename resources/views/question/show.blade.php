@@ -80,7 +80,7 @@
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">
-                        <h5>关于作者</h5>
+                        <h5>关于题主</h5>
                     </div>
                     <div class="panel-body">
                         <div class="media">
