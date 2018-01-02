@@ -13,6 +13,7 @@
                             {{ item.title }}
                         </a>
                     </h4>
+                    <div v-html="item.body"></div>
                 </div>
             </div>
             <br>
