@@ -31,7 +31,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Auth for skynet-todpole, https://github.com/peigongDH/skynet-todpole.git
+     * Auth for skynet-todpole, https://github.com/peigongDH/skynet-mud.git
      *
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -41,7 +41,7 @@ class AuthController extends Controller
         $status = 'failed';
         $userInfo = '';
 
-        if ($request->get('platform') == 'skynet_todpole') {
+        if ($request->get('platform') == 'skynet_mud') {
             $token = $request->get('token');
             $tokenArray = explode("\t", $token);
             if ($tokenArray) {
