@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="media" v-for="item in items">
+        <div class="media page-header" v-for="item in items">
             <div class="media-left">
                 <user-vote-button :is_login="isLogin"
                                   :answer="item.id"

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
-            <div class="media" v-for="item in items">
+            <div class="media page-header" v-for="item in items">
                 <div class="media-left">
                     <a :href="getUserUrl(item)">
                         <img width="48" :src="item.user.avatar" :alt="item.user.name">
